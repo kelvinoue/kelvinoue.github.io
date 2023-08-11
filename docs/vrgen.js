@@ -26,6 +26,7 @@ function gen() {
 
 	let a = query.match(/[A-Z]{1,3}/g);
 	let b = query.match(/[0-9]{1,4}/g);
+	let s = query.match(/[^a-zA-Z0-9]/g);
 
 	let p1;
 	let p2;
@@ -37,7 +38,7 @@ function gen() {
 	let c = [9,4,5,4,3,2];
 	let checksum = ['A','Z','Y','X','U','T','S','R','P','M','L','K','J','H','G','E','D','C','B'];
 	
-	if (a === null || a.length > 1 || b === null || b.length > 1 || query[0].match(/[ES]/g) === null ) {
+	if (a === null || a.length > 1 || b === null || b.length > 1 || query[0].match(/[ES]/g) === null || s !== null) {
 		document.getElementById('alert').textContent = e;
 		return;
 	}
