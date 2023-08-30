@@ -9,19 +9,25 @@ input.addEventListener('keypress',
 );
 
 
-function copier() {
+function copy() {
 	t = document.getElementById('output').innerText;
-	if (t !== '' && t !== null) {
+	if (t !== '' && t !== null && t!== 'Please enter a valid registration no. without the checksum letter.') {
 		navigator.clipboard.writeText(t);
 		document.getElementById('alert').textContent = 'Copied!';
 	}
 }
 
 
+function emsg() {
+	let e = 'Please enter a valid registration no. without the checksum letter.';
+	document.getElementById('output').style = 'font-size:14px;font-weight:normal';
+	document.getElementById('output').textContent = e;
+}
+
+
 function gen() {
 	document.getElementById('output').textContent = '';
 	document.getElementById('alert').textContent = '';
-	let e = 'Please enter a valid Vehicle Reg No. without the checksum letter.';
 	let query = document.getElementById('query').value.toUpperCase().replace(/\s/g,'');
 
 	let a = query.match(/[A-Z]{1,3}/g);
@@ -39,7 +45,7 @@ function gen() {
 	let checksum = ['A','Z','Y','X','U','T','S','R','P','M','L','K','J','H','G','E','D','C','B'];
 	
 	if (a === null || a.length > 1 || b === null || b.length > 1 || query[0].match(/[ES]/g) === null || s !== null) {
-		document.getElementById('alert').textContent = e;
+		emsg();
 		return;
 	}
 
@@ -52,7 +58,7 @@ function gen() {
 	}
 	else if (a.length === 2) {
 		if (a[1].match(/[^IO]/g) === null) {
-			document.getElementById('alert').textContent = e;
+			emsg();
 			return;
 		}
 		p1 = a[0].charCodeAt(0) - 64;
@@ -60,14 +66,14 @@ function gen() {
 	}
 	else if (a.length === 3 && a[0] === 'S') {
 		if (a[1].match(/[^IO]/g) === null || a[2].match(/[^IO]/g) === null) {
-			document.getElementById('alert').textContent = e;
+			emsg();
 			return;
 		}
 		p1 = a[1].charCodeAt(0) - 64;
 		p2 = a[2].charCodeAt(0) - 64;
 	}
 	else {
-		document.getElementById('alert').textContent = e;
+		emsg();
 		return;
 	}
 
@@ -96,7 +102,7 @@ function gen() {
 		p6 = b[3];
 	}
 	else {
-		document.getElementById('alert').textContent = e;
+		emsg();
 		return;
 	}
 
@@ -108,5 +114,6 @@ function gen() {
 	p6 = p6*c[5];
 	r = (p1+p2+p3+p4+p5+p6) % 19;
 	r = checksum[r];
+	document.getElementById('output').style = 'font-size:20px;font-weight:bold';
 	document.getElementById('output').textContent = query + r;	
 }
