@@ -1,6 +1,6 @@
 <html>
 
-<title>Vehicle Reg Generator</title>
+<title>Checksum Generator</title>
 
 <head>
 <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -11,7 +11,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="index.html">Kelvinoue's Page</a>
+  <a class="navbar-brand" href="index.html">Kelvin's Page</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -22,10 +22,10 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Projects
+          Tools
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="vrgen.html" style='font-size:14px'>Vehicle Reg Generator</a>
+          <a class="dropdown-item" href="cgen.html" style='font-size:14px'>Checksum Generator</a>
         </div>
       </li>
     </ul>
@@ -34,17 +34,30 @@
 </head>
 
 <body style='text-align:center;font-size:14px'>
+
 <br>
-<p id='main' style='font-size:24px'><b>Vehicle Reg Generator</b></p>
-<input id='query' type='text' placeholder='Vehicle Reg No.'>
-<p id='temp' style='font-size:1px'></p>
+<p id='title' style='width:65%;margin:auto'>
+<span style='font-size:24px;font-weight:bold'>Checksum Generator</span><br>
+<span>A simple vehicle registration checksum letter generator written in Javascript.</span>
+</p>
+
+<br>
+<p id='main'>
+<input id='query' type='text' placeholder='Registration No.'>
+</p>
+
 <button id='generate' type='button' onclick='gen()' style='font-size:12px'>Enter</button>
-<button id='copier' type='button' onclick='copier()' style='font-size:12px'>Copy</button>
+<button id='copy' type='button' onclick='copy()' style='font-size:12px'>Copy</button>
+
 <br>
 <br>
-<b><p id='output' style='font-size:20px'></p></b>
-<p id='alert' style='font-size:14px;width:65%;margin:auto'></p>
-<script src='vrgen.js'></script>
+<p id='result' style='width:65%;margin:auto'>
+<b><span id='output'></span></b><br>
+<span id='alert'></span>
+</p>
+
+<script src='cgen.js'></script>
+
 </body>
 
 </html>
