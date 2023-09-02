@@ -1,9 +1,11 @@
 let sel_cur = 'None';
 let bgm = new Audio('');
+let click = new Audio('scroll/BtMouseClick.mp3');
 
 function lplay() {
+	click.play();
 	sel_new = document.getElementById('bgmlist').options[document.getElementById('bgmlist').selectedIndex].text;
-	
+
 	if (sel_cur !== sel_new) {
 		bgm.pause();
 		sel_cur = sel_new;
@@ -29,6 +31,33 @@ function lplay() {
 		else if (sel_cur === 'Sleepywood') {
 			bgm = new Audio('scroll/SleepyWood.mp3');
 		}
+		else if (sel_cur === 'Orbis PQ') {
+			bgm = new Audio('scroll/TowerOfGoddess.mp3');
+		}
+		else if (sel_cur === 'Aquarium') {
+			bgm = new Audio('scroll/Aquarium.mp3');
+		}
+		else if (sel_cur === 'Ludibrium Ship') {
+			bgm = new Audio('scroll/FlyingInABlueDream.mp3');
+		}
+		else if (sel_cur === 'Mushroom Shrine') {
+			bgm = new Audio('scroll/Feeling.mp3');
+		}
+		else if (sel_cur === 'Cemetery') {
+			bgm = new Audio('scroll/BizarreForest.mp3');
+		}
+		else if (sel_cur === 'Showa Town') {
+			bgm = new Audio('scroll/Yume.mp3');
+		}
+		else if (sel_cur === 'CBD') {
+			bgm = new Audio('scroll/CBD_field.mp3');
+		}
+		else if (sel_cur === 'MP3') {
+			bgm = new Audio('scroll/BoatQuay_field.mp3');
+		}
+		else if (sel_cur === 'Newtro Kingdom') {
+			bgm = new Audio('scroll/Newtro_Kingdom.mp3');
+		}
 		bgm.play();
 		bgm.loop = true;
 	}
@@ -36,6 +65,7 @@ function lplay() {
 
 
 function play() {
+	click.play();
 	if (bgm.paused) {
 		bgm.play();
 		bgm.loop = true;
