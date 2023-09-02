@@ -49,6 +49,9 @@ function lplay() {
 		else if (sel_cur === 'Showa Town') {
 			bgm = new Audio('scroll/Yume.mp3');
 		}
+		else if (sel_cur === 'Ninja Castle') {
+			bgm = new Audio('scroll/CastleOutSide.mp3');
+		}
 		else if (sel_cur === 'CBD') {
 			bgm = new Audio('scroll/CBD_field.mp3');
 		}
