@@ -1,9 +1,31 @@
 let sel_cur = 'None';
 let bgm = new Audio('');
 let click = new Audio('scroll/BtMouseClick.mp3');
+let enchant_s_mp3 = new Audio('scroll/EnchantSuccess.mp3');
+let enchant_f_mp3 = new Audio('scroll/EnchantFailure.mp3');
+
+let ani_dir_s = 'scroll/ani/succ/';
+let ani_dir_f = 'scroll/ani/fail/';
+let imgsrc_s = [];
+let imgsrc_f = [];
+
+for (let i = 0; i <= 20; i++) {
+	imgsrc_s.push(ani_dir_s + 'img' + i.toString() + '.png');
+};
+
+for (let i = 0; i <= 15; i++) {
+	imgsrc_f.push(ani_dir_f + 'img' + i.toString() + '.png');
+};
+
+
+function qplay(audio) {
+	audio.currentTime = 0;
+	audio.play();
+}
+
 
 function lplay() {
-	click.play();
+	qplay(click);
 	sel_new = document.getElementById('bgmlist').options[document.getElementById('bgmlist').selectedIndex].text;
 
 	if (sel_cur !== sel_new) {
@@ -68,12 +90,61 @@ function lplay() {
 
 
 function play() {
-	click.play();
+	qplay(click);
 	if (bgm.paused) {
 		bgm.play();
 		bgm.loop = true;
 	}
 	else {
 		bgm.pause();
+	}
+}
+
+
+function enchant_s() {
+	qplay(click);
+	qplay(enchant_s_mp3);
+	let i = 0;
+	let img = document.getElementById('enchantment');
+
+	function animate() {
+		img.src = imgsrc_s[i];
+		i++;
+		if (i === imgsrc_s.length) {
+			clearInterval(animation);
+			img.src = '';
+		}
+	}
+	let animation = setInterval(animate, 50);
+}
+
+
+function enchant_f() {
+	qplay(click);
+	qplay(enchant_f_mp3);
+	let i = 0;
+	let img = document.getElementById('enchantment');
+
+	function animate() {
+		img.src = imgsrc_f[i];
+		i++;
+		if (i === imgsrc_f.length) {
+			clearInterval(animation);
+			img.src = '';
+		}
+	}
+	let animation = setInterval(animate, 50);
+}
+
+
+function rng(x) {
+	let chance = Number(x);
+	let roll = Number(Math.floor((Math.random() * 100) + 1));
+
+	if (roll <= chance) {
+		enchant_s();
+	}
+	else {
+		enchant_f();
 	}
 }
