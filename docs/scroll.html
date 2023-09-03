@@ -34,7 +34,27 @@
 </nav>
 </head>
 
-<body style='text-align:center;font-size:14px'>
+<body style='text-align:center;font-size:14px;background-color:cccccc'>
+
+<style>
+#clientarea {
+	position:relative;
+	width:250px;
+	height:145px;
+	margin:auto;
+	border-style:none;
+}
+#enchantment {
+	position:absolute;
+	top:-80px;
+	left:7px;
+}
+#charac {
+	position:absolute;
+	top:40px;
+	left:80px;
+}
+</style>
 
 <br>
 <p id='title' style='width:65%;margin:auto'>
@@ -42,8 +62,20 @@
 <span>A simple Maplestory scrolling simulator written in Javascript.</span>
 </p>
 
+<div id='clientarea'>
+<img id='enchantment' src=''></img>
+<img id='charac' src='scroll/static/charac.png'></img>
+</div>
+
+<p id='selection1' style='width:65%;margin:auto'>
+<img src='scroll/static/70p.png' onclick='rng(70)'></img>
+<img src='scroll/static/30p.png' onclick='rng(30)'></img>
+<img src='scroll/static/60p.png' onclick='rng(60)'></img>
+<img src='scroll/static/10p.png' onclick='rng(10)'></img>
+</p>
+
 <br>
-<p id='main'>
+<p id='selection2'>
 <select id='bgmlist' onchange='lplay()'>
 <option>- Select BGM -</option>
 <option>Lith Harbor</option>
@@ -63,13 +95,7 @@
 <option>MP3</option>
 <option>Newtro Kingdom</option>
 </select>
-
 <button id='play' type='button' onclick='play()' style='font-size:12px'>Play</button>
-</p>
-
-<p id='temp' style='width:65%;margin:auto'>
-<img src='scroll/character.png'></img><br>
-<span id='temp2'></span>WIP.<br>
 </p>
 
 
