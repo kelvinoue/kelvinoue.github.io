@@ -70,7 +70,6 @@
 <link rel='preload' as='image' href='scroll/ani/fail/img13.png'/>
 <link rel='preload' as='image' href='scroll/ani/fail/img14.png'/>
 <link rel='preload' as='image' href='scroll/ani/fail/img15.png'/>
-
 </head>
 
 <body style='text-align:center;font-size:14px;background-color:cccccc'>
@@ -78,20 +77,92 @@
 <style>
 #clientarea {
 	position:relative;
-	width:250px;
-	height:145px;
+	width:280px;
+	height:280px;
 	margin:auto;
 	border-style:none;
 }
-#enchantment {
+#enchant {
 	position:absolute;
 	top:-80px;
-	left:7px;
+	left:22px;
 }
 #charac {
 	position:absolute;
 	top:40px;
-	left:80px;
+	left:95px;
+}
+#eq {
+	position:relative;
+	z-index:4;
+	top:10px;
+}
+#eqinfo {
+	position:relative;
+	z-index:4;
+	top:9px;
+	left:74px;
+	font-family:arial;
+	text-align:left;
+	font-size:11;
+	color:f7f7f7;
+}
+#eqbox0 {
+	position:absolute;
+	z-index:1;
+	top:140px;
+	left:20px;
+	width:240px;
+	height:75px;
+	background-color:white;
+	display:none;
+}
+#eqbox1 {
+	position:absolute;
+	z-index:2;
+	top:140px;
+	left:20px;
+	width:240px;
+	height:75px;
+	background-color:rgba(0, 28, 112, 0.75);
+	display:none;
+}
+#eqbox2 {
+	position:absolute;
+	z-index:2;
+	top:138px;
+	left:18px;
+	width:244px;
+	height:79px;
+	background-color:rgba(0, 0, 0, 0);
+	border-color:rgba(0, 28, 112, 0.75);
+	border-style:solid;
+	border-width:thin;
+	display:none;
+}
+#eqbox3 {
+	position:absolute;
+	z-index:3;
+	top:152px;
+	left:32px;
+	width:50px;
+	height:50px;
+	background-color:rgba(235, 235, 235, 0.8);
+	display:none;
+}
+#notice1 {
+	position:absolute;
+	top:20px;
+	left:130px;
+	font-family:arial;
+	font-size:12;
+}
+#notice2 {
+	position:absolute;
+	top:250px;
+	left:97px;
+	font-family:arial;
+	font-size:12;
 }
 </style>
 
@@ -102,8 +173,26 @@
 </p>
 
 <div id='clientarea'>
-<img id='enchantment' src=''></img>
+<img id='enchant' src=''></img>
 <img id='charac' src='scroll/static/charac.png'></img>
+<div id='eqbox0'></div>
+<div id='eqbox1'>
+<p id='eqinfo'>
+<span id='stat1' style='font-weight:bold;font-size:13'></span>
+<span id='stat2' style='font-weight:bold;font-size:13'></span><br>
+<span id='stat3'></span><br>
+<span id='stat4'></span><br>
+<span id='stat5'></span><br>
+<span id='stat6'></span><br>
+<span id='stat7'></span><br>
+<span id='stat8'></span><br>
+<span id='stat9'></span>
+</p>
+</div>
+<div id='eqbox2'></div>
+<div id='eqbox3'><img id='eq' src=''></img></div>
+<p id='notice1'></p>
+<p id='notice2' style='font-weight:bold;color:red'></p>
 </div>
 
 <p id='selection1' style='width:65%;margin:auto'>
@@ -115,6 +204,19 @@
 
 <br>
 <p id='selection2'>
+<select id='itemlist' onchange='itemselect()'>
+<option>- Select Item -</option>
+<option>Brown Work Gloves</option>
+<option>Maple Soul Searcher</option>
+<option>Maple Lama Staff</option>
+<option>Maple Impaler</option>
+<option>Maple Kandayo</option>
+</select>
+<button id='new' type='button' onclick='itemselect()' style='font-size:12px'>New</button>
+<button id='best' type='button' onclick='itembest()' style='font-size:12px'>Best</button>
+</p>
+
+<p id='selection3'>
 <select id='bgmlist' onchange='lplay()'>
 <option>- Select BGM -</option>
 <option>Lith Harbor</option>
