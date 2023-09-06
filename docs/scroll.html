@@ -70,156 +70,218 @@
 <link rel='preload' as='image' href='scroll/ani/fail/img13.png'/>
 <link rel='preload' as='image' href='scroll/ani/fail/img14.png'/>
 <link rel='preload' as='image' href='scroll/ani/fail/img15.png'/>
+<link rel='preload' as='image' href='scroll/static/zakumhelmet.png'/>
+<link rel='preload' as='image' href='scroll/static/bwg.png'/>
+<link rel='preload' as='image' href='scroll/static/soulsearcher.png'/>
+<link rel='preload' as='image' href='scroll/static/lamastaff.png'/>
+<link rel='preload' as='image' href='scroll/static/impaler.png'/>
+<link rel='preload' as='image' href='scroll/static/kandayo.png'/>
+<link rel='preload' as='image' href='scroll/static/wagner.png'/>
+<link rel='preload' as='image' href='scroll/static/henesyspark2.png'/>
 </head>
 
 <body style='text-align:center;font-size:14px;background-color:cccccc'>
 
 <style>
-#clientarea {
+#characbox {
 	position:relative;
-	width:280px;
-	height:280px;
+	width:140px;
+	height:140px;
 	margin:auto;
 	border-style:none;
 }
 #enchant {
 	position:absolute;
+	z-index:1;
 	top:-80px;
-	left:22px;
+	left:-49px;
 }
 #charac {
-	position:absolute;
+	position:relative;
+	z-index:2;
 	top:40px;
-	left:95px;
+	left:2px;
+}
+#mapbg {
+	position:absolute;
+	z-index:0;
+	top:-330px;
+	left:-302px;
+}
+#itembox {
+	position:relative;
+	width:300px;
+	height:20px;
+	margin:auto;
+	border-style:none;
+}
+#itemwin1 {
+	position:absolute;
+	z-index:2;
+	top:0px;
+	left:28px;
+	width:244px;
+	height:79px;
+	margin:auto;
+	background-color:rgba(0, 0, 0, 0);
+	border-color:rgba(0, 28, 112, 0.8);
+	border-style:solid;
+	border-width:thin;
+	display:none;
+}
+#itemwin2 {
+	position:absolute;
+	z-index:2;
+	top:1px;
+	left:1px;
+	width:240px;
+	height:75px;
+	background-color:rgba(0, 28, 112, 0.8);
+	display:none;
+}
+#eqinfo {
+	position:relative;
+	z-index:4;
+	top:7px;
+	left:69px;
+	font-family:arial;
+	text-align:left;
+	font-size:11;
+	color:f7f7f7;
+}
+#itemwin3 {
+	position:absolute;
+	z-index:3;
+	top:10px;
+	left:10px;
+	width:50px;
+	height:50px;
+	background-color:rgba(235, 235, 235, 0.8);
+	display:none;
 }
 #eq {
 	position:relative;
 	z-index:4;
 	top:10px;
 }
-#eqinfo {
+#selbox0 {
 	position:relative;
-	z-index:4;
-	top:9px;
-	left:74px;
+	z-index:2;
+	width:244px;
+	height:134px;
+	margin:auto;
+	background-color:rgba(0, 0, 0, 0);
+	border-color:rgba(0, 28, 112, 0.8);
+	border-style:solid;
+	border-width:thin;
+}
+#selbox1 {
+	position:absolute;
+	z-index:2;
+	width:240px;
+	height:130px;
+	top:1px;
+	left:1px;
+	padding-top:8px;
+	margin:auto;
+	background-color:rgba(0, 28, 112, 0.8);
+	border-style:none;
+}
+#scrollinfo {
+	position:absolute;
+	top:35px;
+	left:57px;
 	font-family:arial;
-	text-align:left;
+	font-weight:bold;
 	font-size:11;
 	color:f7f7f7;
 }
-#eqbox0 {
+#notice {
 	position:absolute;
-	z-index:1;
-	top:140px;
-	left:20px;
-	width:240px;
-	height:75px;
-	background-color:white;
-	display:none;
-}
-#eqbox1 {
-	position:absolute;
-	z-index:2;
-	top:140px;
-	left:20px;
-	width:240px;
-	height:75px;
-	background-color:rgba(0, 28, 112, 0.75);
-	display:none;
-}
-#eqbox2 {
-	position:absolute;
-	z-index:2;
-	top:138px;
-	left:18px;
-	width:244px;
-	height:79px;
-	background-color:rgba(0, 0, 0, 0);
-	border-color:rgba(0, 28, 112, 0.75);
-	border-style:solid;
-	border-width:thin;
-	display:none;
-}
-#eqbox3 {
-	position:absolute;
-	z-index:3;
-	top:152px;
-	left:32px;
-	width:50px;
-	height:50px;
-	background-color:rgba(235, 235, 235, 0.8);
-	display:none;
-}
-#notice1 {
-	position:absolute;
-	top:20px;
-	left:130px;
+	top:52px;
+	left:75px;
 	font-family:arial;
+	font-weight:bold;
+	font-size:12;
+	color:red;
+}
+#selection2 {
+	position:relative;
+	top:17px;
 	font-size:12;
 }
-#notice2 {
-	position:absolute;
-	top:250px;
-	left:97px;
-	font-family:arial;
+#selection3 {
+	position:relative;
+	top:5px;
 	font-size:12;
 }
 </style>
 
 <br>
 <p id='title' style='width:65%;margin:auto'>
-<span style='font-size:24px;font-weight:bold'>Scrolling Simulator</span><br>
-<span>A simple Maplestory scrolling simulator written in Javascript.</span>
+	<span style='font-size:24px;font-weight:bold'>Scrolling Simulator</span><br>
+	<span>A simple Maplestory scrolling simulator written in Javascript.</span>
 </p>
 
-<div id='clientarea'>
-<img id='enchant' src=''></img>
-<img id='charac' src='scroll/static/charac.png'></img>
-<div id='eqbox0'></div>
-<div id='eqbox1'>
-<p id='eqinfo'>
-<span id='stat1' style='font-weight:bold;font-size:13'></span>
-<span id='stat2' style='font-weight:bold;font-size:13'></span><br>
-<span id='stat3'></span><br>
-<span id='stat4'></span><br>
-<span id='stat5'></span><br>
-<span id='stat6'></span><br>
-<span id='stat7'></span><br>
-<span id='stat8'></span><br>
-<span id='stat9'></span>
-</p>
+<div id='characbox'>
+	<img id='enchant' src='' />
+	<img id='charac' src='scroll/static/charac.png' />
+	<img id='mapbg' src='scroll/static/henesyspark2.png' />
 </div>
-<div id='eqbox2'></div>
-<div id='eqbox3'><img id='eq' src=''></img></div>
-<p id='notice1'></p>
-<p id='notice2' style='font-weight:bold;color:red'></p>
+
+<div id='itembox'>
+	<div id='itemwin1'>
+		<div id='itemwin2'>
+			<div id='itemwin3'><img id='eq' src='' /></div>
+			<p id='eqinfo'>
+			<span id='stat1' style='font-weight:bold;font-size:13'></span>
+			<span id='stat2' style='font-weight:bold;font-size:13'></span><br>
+			<span id='stat3'></span><br>
+			<span id='stat4'></span><br>
+			<span id='stat5'></span><br>
+			<span id='stat6'></span><br>
+			<span id='stat7'></span><br>
+			<span id='stat8'></span><br>
+			<span id='stat9'></span>
+			</p>
+		</div>
+	</div>
 </div>
+
+<div id='selbox0'>
+<div id='selbox1'>
 
 <p id='selection1' style='width:65%;margin:auto'>
-<img src='scroll/static/70p.png' onclick='rng(70)'></img>
-<img src='scroll/static/30p.png' onclick='rng(30)'></img>
-<img src='scroll/static/60p.png' onclick='rng(60)'></img>
-<img src='scroll/static/10p.png' onclick='rng(10)'></img>
+<img src='scroll/static/70p.png' onclick='rng(70)' />
+<img src='scroll/static/30p.png' onclick='rng(30)' />
+<img src='scroll/static/60p.png' onclick='rng(60)' />
+<img src='scroll/static/10p.png' onclick='rng(10)' />
 </p>
+
+<p id='scrollinfo'>70%&nbsp;&nbsp;&nbsp;&nbsp;30%&nbsp;&nbsp;&nbsp;&nbsp;60%&nbsp;&nbsp;&nbsp;&nbsp;10%</p>
+<p id='notice'></p>
 
 <br>
 <p id='selection2'>
-<select id='itemlist' onchange='itemselect()'>
+<select id='itemlist' onchange='itemselect()' style='font-size:12px'>
 <option>- Select Item -</option>
+<option>Zakum Helmet</option>
 <option>Brown Work Gloves</option>
 <option>Maple Soul Searcher</option>
 <option>Maple Lama Staff</option>
 <option>Maple Impaler</option>
 <option>Maple Kandayo</option>
+<option>Maple Wagner</option>
 </select>
 <button id='new' type='button' onclick='itemselect()' style='font-size:12px'>New</button>
 <button id='best' type='button' onclick='itembest()' style='font-size:12px'>Best</button>
 </p>
 
 <p id='selection3'>
-<select id='bgmlist' onchange='lplay()'>
+<select id='bgmlist' onchange='lplay()' style='font-size:12px'>
 <option>- Select BGM -</option>
 <option>Lith Harbor</option>
+<option>L Forest</option>
 <option>Henesys</option>
 <option>Ellinia</option>
 <option>Perion</option>
@@ -238,6 +300,9 @@
 </select>
 <button id='play' type='button' onclick='play()' style='font-size:12px'>Play/Pause</button>
 </p>
+
+</div>
+</div>
 
 
 <script src='scroll.js'></script>
