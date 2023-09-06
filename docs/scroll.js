@@ -29,9 +29,9 @@ let watk = 0;
 let matk = 0;
 let slots = 0;
 let upgrades = 0;
-let bestitem = [[0,0,0,0,0,0,7,0],[0,0,0,0,58,0,7,0],[0,0,0,0,0,58,7,0],[1,0,0,0,65,0,7,0],[0,0,0,0,23,0,7,0]];
+let bestitem = [[15,15,15,15,0,0,10,0],[0,0,0,0,0,0,7,0],[0,0,0,0,58,0,7,0],[0,0,0,0,0,58,7,0],[1,0,0,0,65,0,7,0],[0,0,0,0,23,0,7,0],[0,0,0,0,58,0,7,0]];
 let mesos = 0;
-let buffer = [0,0,0,0,13,33,53,73];
+let buffer = [0,0,0,0,12,29,46,63];
 
 
 function qplay(audio) {
@@ -53,6 +53,9 @@ function lplay() {
 		}
 		else if (sel_cur === 'Lith Harbor') {
 			bgm = new Audio('scroll/AboveTheTreetops.mp3');
+		}
+		else if (sel_cur === 'L Forest') {
+			bgm = new Audio('scroll/BlueSky.mp3');
 		}
 		else if (sel_cur === 'Henesys') {
 			bgm = new Audio('scroll/FloralLife.mp3');
@@ -212,7 +215,7 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:5bc900';
 		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:5bc900';
 	}
-	else if (l_upgrades === 7) {
+	else if (l_upgrades >= 7) {
 		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:fc0356';
 		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:fc0356';
 	}
@@ -226,16 +229,16 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 		}
 	}
 
-	document.getElementById('eqbox0').style = 'display:block;height:' + (75 + buffer[itemupdater.length]).toString();
-	document.getElementById('eqbox1').style = 'display:block;height:' + (75 + buffer[itemupdater.length]).toString();
-	document.getElementById('eqbox2').style = 'display:block;height:' + (79 + buffer[itemupdater.length]).toString();
-	document.getElementById('eqbox3').style = 'display:block';
+	document.getElementById('itembox').style = 'height:' + (105 + buffer[itemupdater.length]).toString();
+	document.getElementById('itemwin1').style = 'display:block;height:' + (79 + buffer[itemupdater.length]).toString();
+	document.getElementById('itemwin2').style = 'display:block;height:' + (75 + buffer[itemupdater.length]).toString();
+	document.getElementById('itemwin3').style = 'display:block';
 }
 
 
 function itemselect() {
 	qplay(click);
-	document.getElementById('notice2').textContent = '';
+	document.getElementById('notice').textContent = '';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
 
 	if (item_sel === '- Select Item -') {
@@ -243,10 +246,23 @@ function itemselect() {
 		for (let i = 0; i < 9; i++) {
 			document.getElementById('stat' + (i+1).toString()).textContent = '';
 		}
-		document.getElementById('eqbox0').style = 'display:none';
-		document.getElementById('eqbox1').style = 'display:none';
-		document.getElementById('eqbox2').style = 'display:none';
-		document.getElementById('eqbox3').style = 'display:none';
+		document.getElementById('itembox').style = 'height:20';
+		document.getElementById('itemwin1').style = 'display:none';
+		document.getElementById('itemwin2').style = 'display:none';
+		document.getElementById('itemwin3').style = 'display:none';
+	}
+	else if (item_sel === 'Zakum Helmet') {
+		stat_str = 15;
+		stat_dex = 15;
+		stat_int = 15;
+		stat_luk = 15;
+		watk = 0;
+		matk = 0;
+		slots = 10;
+		upgrades = 0;
+		document.getElementById('eq').src = 'scroll/static/zakumhelmet.png';
+		document.getElementById('stat1').textContent = 'Zakum Helmet';
+		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 	}
 	else if (item_sel === 'Brown Work Gloves') {
 		stat_str = 0;
@@ -313,12 +329,25 @@ function itemselect() {
 		document.getElementById('stat1').textContent = 'Maple Kandayo';
 		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 	}
+	else if (item_sel === 'Maple Wagner') {
+		stat_str = 0;
+		stat_dex = 0;
+		stat_int = 0;
+		stat_luk = 0;
+		watk = 58;
+		matk = 0;
+		slots = 7;
+		upgrades = 0;
+		document.getElementById('eq').src = 'scroll/static/wagner.png';
+		document.getElementById('stat1').textContent = 'Maple Wagner';
+		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+	}
 }
 
 
 function itembest() {
 	qplay(click);
-	document.getElementById('notice2').textContent = '';
+	document.getElementById('notice').textContent = '';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
 	let temp;
 
@@ -327,33 +356,43 @@ function itembest() {
 		for (let i = 0; i < 9; i++) {
 			document.getElementById('stat' + (i+1).toString()).textContent = '';
 		}
-		document.getElementById('eqbox0').style = 'display:none';
-		document.getElementById('eqbox1').style = 'display:none';
-		document.getElementById('eqbox2').style = 'display:none';
-		document.getElementById('eqbox3').style = 'display:none';
+		document.getElementById('itembox').style = 'height:20';
+		document.getElementById('itemwin1').style = 'display:none';
+		document.getElementById('itemwin2').style = 'display:none';
+		document.getElementById('itemwin3').style = 'display:none';
 	}
-	else if (item_sel === 'Brown Work Gloves') {
+	else if (item_sel === 'Zakum Helmet') {
 		temp = bestitem[0];
 		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
 		slots = temp[6];
 	}
-	else if (item_sel === 'Maple Soul Searcher') {
+	else if (item_sel === 'Brown Work Gloves') {
 		temp = bestitem[1];
 		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
 		slots = temp[6];
 	}
-	else if (item_sel === 'Maple Lama Staff') {
+	else if (item_sel === 'Maple Soul Searcher') {
 		temp = bestitem[2];
 		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
 		slots = temp[6];
 	}
-	else if (item_sel === 'Maple Impaler') {
+	else if (item_sel === 'Maple Lama Staff') {
 		temp = bestitem[3];
 		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
 		slots = temp[6];
 	}
-	else if (item_sel === 'Maple Kandayo') {
+	else if (item_sel === 'Maple Impaler') {
 		temp = bestitem[4];
+		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
+		slots = temp[6];
+	}
+	else if (item_sel === 'Maple Kandayo') {
+		temp = bestitem[5];
+		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
+		slots = temp[6];
+	}
+	else if (item_sel === 'Maple Wagner') {
+		temp = bestitem[6];
 		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
 		slots = temp[6];
 	}
@@ -374,9 +413,50 @@ function rng(x) {
 		return;
 	}
 
-	document.getElementById('notice2').textContent = '';
+	document.getElementById('notice').textContent = '';
 
-	if (item_sel === 'Brown Work Gloves') {
+	if (item_sel === 'Zakum Helmet') {
+		if (slots === 0) {
+			return;
+		}
+		if (roll <= chance) {
+			enchant_s();
+			if (chance === 10 || chance === 30) {
+				stat_str += 3;
+				stat_dex += 3;
+				stat_int += 3;
+				stat_luk += 3;
+				slots -= 1;
+				upgrades += 1;
+				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			}
+			else if (chance === 60 || chance === 70) {
+				stat_str += 2;
+				stat_dex += 2;
+				stat_int += 2;
+				stat_luk += 2;
+				slots -= 1;
+				upgrades += 1;
+				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			}
+		}
+		else {
+			enchant_f();
+			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
+				itemselect();
+				document.getElementById('notice').textContent = 'Item destroyed!';
+			}
+			else {
+				slots -= 1;
+				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			}
+		}
+
+		if (slots === 0 && stat_int > bestitem[0][2]) {
+			bestitem[0] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		}
+	}
+	else if (item_sel === 'Brown Work Gloves') {
 		if (slots === 0) {
 			return;
 		}
@@ -399,7 +479,7 @@ function rng(x) {
 			enchant_f();
 			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
 				itemselect();
-				document.getElementById('notice2').textContent = 'Item destroyed!';
+				document.getElementById('notice').textContent = 'Item destroyed!';
 			}
 			else {
 				slots -= 1;
@@ -407,8 +487,8 @@ function rng(x) {
 			}
 		}
 
-		if (slots === 0 && watk > bestitem[0][4]) {
-			bestitem[0] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		if (slots === 0 && watk > bestitem[1][4]) {
+			bestitem[1] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
 		}
 	}
 	else if (item_sel === 'Maple Soul Searcher') {
@@ -435,7 +515,7 @@ function rng(x) {
 			enchant_f();
 			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
 				itemselect();
-				document.getElementById('notice2').textContent = 'Item destroyed!';
+				document.getElementById('notice').textContent = 'Item destroyed!';
 			}
 			else {
 				slots -= 1;
@@ -443,8 +523,8 @@ function rng(x) {
 			}
 		}
 
-		if (slots === 0 && watk > bestitem[1][4]) {
-			bestitem[1] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		if (slots === 0 && watk > bestitem[2][4]) {
+			bestitem[2] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
 		}
 	}
 	else if (item_sel === 'Maple Lama Staff') {
@@ -472,7 +552,7 @@ function rng(x) {
 			enchant_f();
 			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
 				itemselect();
-				document.getElementById('notice2').textContent = 'Item destroyed!';
+				document.getElementById('notice').textContent = 'Item destroyed!';
 			}
 			else {
 				slots -= 1;
@@ -480,8 +560,8 @@ function rng(x) {
 			}
 		}
 
-		if (slots === 0 && matk > bestitem[2][5]) {
-			bestitem[2] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		if (slots === 0 && matk > bestitem[3][5]) {
+			bestitem[3] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
 		}
 	}
 	else if (item_sel === 'Maple Impaler') {
@@ -509,7 +589,7 @@ function rng(x) {
 			enchant_f();
 			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
 				itemselect();
-				document.getElementById('notice2').textContent = 'Item destroyed!';
+				document.getElementById('notice').textContent = 'Item destroyed!';
 			}
 			else {
 				slots -= 1;
@@ -517,11 +597,11 @@ function rng(x) {
 			}
 		}
 
-		if (slots === 0 && watk > bestitem[3][4]) {
-			bestitem[3] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		if (slots === 0 && watk > bestitem[4][4]) {
+			bestitem[4] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
 		}
 	}
-	else if (item_sel === 'Maple Kandayo') {
+	else if (item_sel === 'Maple Kandayo' || item_sel === 'Maple Wagner') {
 		if (slots === 0) {
 			return;
 		}
@@ -545,7 +625,7 @@ function rng(x) {
 			enchant_f();
 			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
 				itemselect();
-				document.getElementById('notice2').textContent = 'Item destroyed!';
+				document.getElementById('notice').textContent = 'Item destroyed!';
 			}
 			else {
 				slots -= 1;
@@ -553,8 +633,11 @@ function rng(x) {
 			}
 		}
 
-		if (slots === 0 && watk > bestitem[4][4]) {
-			bestitem[4] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		if (slots === 0 && watk > bestitem[5][4] && item_sel === 'Maple Kandayo') {
+			bestitem[5] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		}
+		else if (slots === 0 && watk > bestitem[6][4] && item_sel === 'Maple Wagner') {
+			bestitem[6] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
 		}
 	}
 }
