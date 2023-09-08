@@ -3,7 +3,7 @@
 <title>Scrolling Simulator</title>
 
 <head>
-<meta name='viewport' content='width=device-width, initial-scale=1.0'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -70,23 +70,32 @@
 <link rel='preload' as='image' href='scroll/ani/fail/img13.png'/>
 <link rel='preload' as='image' href='scroll/ani/fail/img14.png'/>
 <link rel='preload' as='image' href='scroll/ani/fail/img15.png'/>
+<link rel='preload' as='image' href='scroll/static/henesyspark2.png'/>
 <link rel='preload' as='image' href='scroll/static/zakumhelmet.png'/>
+<link rel='preload' as='image' href='scroll/static/bluesaunarobe.png'/>
+<link rel='preload' as='image' href='scroll/static/redsaunarobe.png'/>
 <link rel='preload' as='image' href='scroll/static/bwg.png'/>
+<link rel='preload' as='image' href='scroll/static/pumpkinspear.png'/>
+<link rel='preload' as='image' href='scroll/static/sakebottle.png'/>
+<link rel='preload' as='image' href='scroll/static/impaler.png'/>
+<link rel='preload' as='image' href='scroll/static/japanesemap.png'/>
 <link rel='preload' as='image' href='scroll/static/soulsearcher.png'/>
 <link rel='preload' as='image' href='scroll/static/lamastaff.png'/>
-<link rel='preload' as='image' href='scroll/static/impaler.png'/>
+<link rel='preload' as='image' href='scroll/static/hinomarufan.png'/>
 <link rel='preload' as='image' href='scroll/static/kandayo.png'/>
+<link rel='preload' as='image' href='scroll/static/shinobibracer.png'/>
+<link rel='preload' as='image' href='scroll/static/koreanfan.png'/>
 <link rel='preload' as='image' href='scroll/static/wagner.png'/>
-<link rel='preload' as='image' href='scroll/static/henesyspark2.png'/>
+<link rel='preload' as='image' href='scroll/static/diamonddagger.png'/>
 </head>
 
-<body style='text-align:center;font-size:14px;background-color:cccccc'>
+<body style='text-align:center;font-size:14px;background-color:cccccc;overflow-x:hidden;-webkit-text-select:none;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;'>
 
 <style>
 #characbox {
 	position:relative;
 	width:140px;
-	height:140px;
+	height:139px;
 	margin:auto;
 	border-style:none;
 }
@@ -121,7 +130,7 @@
 	top:0px;
 	left:28px;
 	width:244px;
-	height:79px;
+	height:75px;
 	margin:auto;
 	background-color:rgba(0, 0, 0, 0);
 	border-color:rgba(0, 28, 112, 0.8);
@@ -135,7 +144,7 @@
 	top:1px;
 	left:1px;
 	width:240px;
-	height:75px;
+	height:71px;
 	background-color:rgba(0, 28, 112, 0.8);
 	display:none;
 }
@@ -190,7 +199,7 @@
 #scrollinfo {
 	position:absolute;
 	top:35px;
-	left:57px;
+	left:39px;
 	font-family:arial;
 	font-weight:bold;
 	font-size:11;
@@ -198,12 +207,12 @@
 }
 #notice {
 	position:absolute;
-	top:52px;
-	left:75px;
+	top:50px;
+	left:78px;
 	font-family:arial;
-	font-weight:bold;
+	font-weight:normal;
 	font-size:12;
-	color:red;
+	color:fcaa9d;
 }
 #selection2 {
 	position:relative;
@@ -251,14 +260,15 @@
 <div id='selbox0'>
 <div id='selbox1'>
 
-<p id='selection1' style='width:65%;margin:auto'>
+<p id='selection1' style='margin:auto'>
 <img src='scroll/static/70p.png' onclick='rng(70)' />
 <img src='scroll/static/30p.png' onclick='rng(30)' />
 <img src='scroll/static/60p.png' onclick='rng(60)' />
 <img src='scroll/static/10p.png' onclick='rng(10)' />
+<img src='scroll/static/cs10p.png' onclick='rng(10,1)' />
 </p>
 
-<p id='scrollinfo'>70%&nbsp;&nbsp;&nbsp;&nbsp;30%&nbsp;&nbsp;&nbsp;&nbsp;60%&nbsp;&nbsp;&nbsp;&nbsp;10%</p>
+<p id='scrollinfo'>70%&nbsp;&nbsp;&nbsp;&nbsp;30%&nbsp;&nbsp;&nbsp;&nbsp;60%&nbsp;&nbsp;&nbsp;&nbsp;10%&nbsp;&nbsp;&nbsp;cs10%</p>
 <p id='notice'></p>
 
 <br>
@@ -266,14 +276,23 @@
 <select id='itemlist' onchange='itemselect()' style='font-size:12px;width:100px'>
 <option>- Select Item -</option>
 <option>Zakum Helmet</option>
+<option>Blue Sauna Robe</option>
+<option>Red Sauna Robe</option>
 <option>Brown Work Gloves</option>
+<option>Pumpkin Spear</option>
+<option>Sake Bottle</option>
+<option>Maple Impaler</option>
+<option>Japanese Map</option>
 <option>Maple Soul Searcher</option>
 <option>Maple Lama Staff</option>
-<option>Maple Impaler</option>
+<option>Hinomaru Fan</option>
 <option>Maple Kandayo</option>
+<option>Shinobi Bracer</option>
+<option>Korean Fan</option>
 <option>Maple Wagner</option>
+<option>Diamond Dagger</option>
 </select>
-<button id='new' type='button' onclick='itemselect()' style='font-size:12px'>New</button>
+<button id='new' type='button' onclick='itemselect_c()' style='font-size:12px'>New</button>
 <button id='best' type='button' onclick='itembest()' style='font-size:12px'>Best</button>
 </p>
 
