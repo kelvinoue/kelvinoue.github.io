@@ -19,7 +19,10 @@ for (let i = 0; i <= 15; i++) {
 
 
 let lastclick = 0;
-let delay = 750;
+const delay_select = 250;
+const delay_scroll = 750;
+const buffer = [0,0,0,0,13,30,47,64];
+
 let item_sel = 'None';
 let stat_str = 0;
 let stat_dex = 0;
@@ -29,9 +32,46 @@ let watk = 0;
 let matk = 0;
 let slots = 0;
 let upgrades = 0;
-let bestitem = [[15,15,15,15,0,0,10,0],[0,0,0,0,0,0,7,0],[0,0,0,0,58,0,7,0],[0,0,0,0,0,58,7,0],[1,0,0,0,65,0,7,0],[0,0,0,0,23,0,7,0],[0,0,0,0,58,0,7,0]];
-let mesos = 0;
-let buffer = [0,0,0,0,12,29,46,63];
+
+let itemnames = [
+ 'Zakum Helmet'
+,'Blue Sauna Robe'
+,'Red Sauna Robe'
+,'Brown Work Gloves'
+,'Pumpkin Spear'
+,'Sake Bottle'
+,'Maple Impaler'
+,'Japanese Map'
+,'Maple Soul Searcher'
+,'Maple Lama Staff'
+,'Hinomaru Fan'
+,'Maple Kandayo'
+,'Shinobi Bracer'
+,'Korean Fan'
+,'Maple Wagner'
+,'Diamond Dagger'
+];
+
+let items = [
+ ['Zakum Helmet', 'scroll/static/zakumhelmet.png', [15,15,15,15,0,0,10,0], [15,15,15,15,0,0,10,0], [3,3,3,3,0,0], [2,2,2,2,0,0], 0, -1, '']
+,['Blue Sauna Robe', 'scroll/static/bluesaunarobe.png', [0,0,0,0,0,0,10,0], [0,0,0,0,0,0,10,0], [5,5,5,5,0,0], [2,2,2,2,0,0], 0, -1, 'M']
+,['Red Sauna Robe', 'scroll/static/redsaunarobe.png', [0,0,0,0,0,0,10,0], [0,0,0,0,0,0,10,0], [5,5,5,5,0,0], [2,2,2,2,0,0], 0, -1, 'F']
+,['Brown Work Gloves', 'scroll/static/bwg.png', [0,0,0,0,0,0,7,0], [0,0,0,0,0,0,7,0], [0,0,0,0,3,0], [0,0,0,0,2,0], 4, 0, '']
+,['Pumpkin Spear', 'scroll/static/pumpkinspear.png', [1,0,0,0,47,0,7,0], [1,0,0,0,47,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '']
+,['Sake Bottle', 'scroll/static/sakebottle.png', [0,0,0,0,100,0,7,0], [0,0,0,0,100,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '']
+,['Maple Impaler', 'scroll/static/impaler.png', [1,0,0,0,65,0,7,0], [1,0,0,0,65,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '']
+,['Japanese Map', 'scroll/static/japanesemap.png', [2,2,0,0,68,0,7,0], [2,2,0,0,68,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '']
+,['Maple Soul Searcher', 'scroll/static/soulsearcher.png', [0,0,0,0,58,0,7,0], [0,0,0,0,58,0,7,0], [0,1,0,0,5,0], [0,0,0,0,2,0], 4, 0, '']
+,['Maple Lama Staff', 'scroll/static/lamastaff.png', [0,0,0,0,39,58,7,0], [0,0,0,0,39,58,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '']
+,['Hinomaru Fan', 'scroll/static/hinomarufan.png', [0,0,0,0,50,75,7,0], [0,0,0,0,50,75,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '']
+,['Maple Kandayo', 'scroll/static/kandayo.png', [0,0,0,0,23,0,7,0], [0,0,0,0,23,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
+,['Shinobi Bracer', 'scroll/static/shinobibracer.png', [0,0,0,5,28,0,7,0], [0,0,0,5,28,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
+,['Korean Fan', 'scroll/static/koreanfan.png', [0,0,0,0,50,0,7,0], [0,0,0,0,50,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
+,['Maple Wagner', 'scroll/static/wagner.png', [0,0,0,0,58,0,7,0], [0,0,0,0,58,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
+,['Diamond Dagger', 'scroll/static/diamonddagger.png', [0,3,0,0,62,0,7,0], [0,3,0,0,62,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
+];
+
+//,['', 'scroll/static/', [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], 0, -1, '']
 
 
 function qplay(audio) {
@@ -160,10 +200,15 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 	let itemupdater = [];
 
 	if (l_upgrades > 0) {
-		itemupdater.push('(+' + l_upgrades.toString() + ')');
+		itemupdater.push('(+' + l_upgrades.toString() + items[itemnames.indexOf(item_sel)][8] + ')');
 	}
 	else {
-		itemupdater.push('');
+		if (['M','F'].includes(items[itemnames.indexOf(item_sel)][8])) {
+			itemupdater.push('(' + items[itemnames.indexOf(item_sel)][8] + ')');
+		}
+		else {
+			itemupdater.push('');
+		}
 	}
 
 	if (l_str > 0) {
@@ -229,9 +274,9 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 		}
 	}
 
-	document.getElementById('itembox').style = 'height:' + (105 + buffer[itemupdater.length]).toString();
-	document.getElementById('itemwin1').style = 'display:block;height:' + (79 + buffer[itemupdater.length]).toString();
-	document.getElementById('itemwin2').style = 'display:block;height:' + (75 + buffer[itemupdater.length]).toString();
+	document.getElementById('itembox').style = 'height:' + (93 + buffer[itemupdater.length]).toString();
+	document.getElementById('itemwin1').style = 'display:block;height:' + (75 + buffer[itemupdater.length]).toString();
+	document.getElementById('itemwin2').style = 'display:block;height:' + (71 + buffer[itemupdater.length]).toString();
 	document.getElementById('itemwin3').style = 'display:block';
 }
 
@@ -250,98 +295,74 @@ function itemselect() {
 		document.getElementById('itemwin1').style = 'display:none';
 		document.getElementById('itemwin2').style = 'display:none';
 		document.getElementById('itemwin3').style = 'display:none';
+		return;
 	}
-	else if (item_sel === 'Zakum Helmet') {
-		stat_str = 15;
-		stat_dex = 15;
-		stat_int = 15;
-		stat_luk = 15;
-		watk = 0;
-		matk = 0;
-		slots = 10;
-		upgrades = 0;
-		document.getElementById('eq').src = 'scroll/static/zakumhelmet.png';
-		document.getElementById('stat1').textContent = 'Zakum Helmet';
-		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+
+	let temp = items[itemnames.indexOf(item_sel)];
+
+	let roll_0 = Number(Math.floor((Math.random() * (6 - 1) + 1))) - 3;
+	let roll_1 = Number(Math.floor((Math.random() * (6 - 1) + 1))) - 3;
+	let roll_2 = Number(Math.floor((Math.random() * (6 - 1) + 1))) - 3;
+	let roll_3 = Number(Math.floor((Math.random() * (6 - 1) + 1))) - 3;
+	let roll_4 = Number(Math.floor((Math.random() * (6 - 1) + 1))) - 3;
+	let roll_5 = Number(Math.floor((Math.random() * (6 - 1) + 1))) - 3;
+	let roll_lucky = Number(Math.floor((Math.random() * 100) + 1));
+
+	if (roll_lucky <= 10) {
+		roll_0 += 1;
+		roll_1 += 1;
+		roll_2 += 1;
+		roll_3 += 1;
+		roll_4 += 1;
+		roll_5 += 1;
 	}
-	else if (item_sel === 'Brown Work Gloves') {
-		stat_str = 0;
-		stat_dex = 0;
-		stat_int = 0;
-		stat_luk = 0;
-		watk = 0;
-		matk = 0;
-		slots = 7;
-		upgrades = 0;
-		document.getElementById('eq').src = 'scroll/static/bwg.png';
-		document.getElementById('stat1').textContent = 'Brown Work Gloves';
-		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+
+	let temp_str = temp[2][0];
+	let temp_dex = temp[2][1];
+	let temp_int = temp[2][2];
+	let temp_luk = temp[2][3];
+	let temp_watk = temp[2][4];
+	let temp_matk = temp[2][5];
+
+	if (temp_str >= 2) {
+		temp_str += roll_0;
 	}
-	else if (item_sel === 'Maple Soul Searcher') {
-		stat_str = 0;
-		stat_dex = 0;
-		stat_int = 0;
-		stat_luk = 0;
-		watk = 58;
-		matk = 0;
-		slots = 7;
-		upgrades = 0;
-		document.getElementById('eq').src = 'scroll/static/soulsearcher.png';
-		document.getElementById('stat1').textContent = 'Maple Soul Searcher';
-		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+	if (temp_dex >= 2) {
+		temp_dex += roll_1;
 	}
-	else if (item_sel === 'Maple Lama Staff') {
-		stat_str = 0;
-		stat_dex = 0;
-		stat_int = 0;
-		stat_luk = 0;
-		watk = 0;
-		matk = 58;
-		slots = 7;
-		upgrades = 0;
-		document.getElementById('eq').src = 'scroll/static/lamastaff.png';
-		document.getElementById('stat1').textContent = 'Maple Lama Staff';
-		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+	if (temp_int >= 2) {
+		temp_int += roll_2;
 	}
-	else if (item_sel === 'Maple Impaler') {
-		stat_str = 1;
-		stat_dex = 0;
-		stat_int = 0;
-		stat_luk = 0;
-		watk = 65;
-		matk = 0;
-		slots = 7;
-		upgrades = 0;
-		document.getElementById('eq').src = 'scroll/static/impaler.png';
-		document.getElementById('stat1').textContent = 'Maple Impaler';
-		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+	if (temp_luk >= 2) {
+		temp_luk += roll_3;
 	}
-	else if (item_sel === 'Maple Kandayo') {
-		stat_str = 0;
-		stat_dex = 0;
-		stat_int = 0;
-		stat_luk = 0;
-		watk = 23;
-		matk = 0;
-		slots = 7;
-		upgrades = 0;
-		document.getElementById('eq').src = 'scroll/static/kandayo.png';
-		document.getElementById('stat1').textContent = 'Maple Kandayo';
-		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+	if (temp_watk >= 2) {
+		temp_watk += roll_4;
 	}
-	else if (item_sel === 'Maple Wagner') {
-		stat_str = 0;
-		stat_dex = 0;
-		stat_int = 0;
-		stat_luk = 0;
-		watk = 58;
-		matk = 0;
-		slots = 7;
-		upgrades = 0;
-		document.getElementById('eq').src = 'scroll/static/wagner.png';
-		document.getElementById('stat1').textContent = 'Maple Wagner';
-		itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+	if (temp_matk >= 2) {
+		temp_matk += roll_5;
 	}
+
+	document.getElementById('stat1').textContent = temp[0];
+	document.getElementById('eq').src = temp[1];
+	stat_str = temp_str;
+	stat_dex = temp_dex;
+	stat_int = temp_int;
+	stat_luk = temp_luk;
+	watk = temp_watk;
+	matk = temp_matk;
+	slots = temp[2][6];
+	upgrades = temp[2][7];
+	itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+}
+
+
+function itemselect_c() {
+	if (lastclick >= (Date.now() - delay_select)) {
+		return;
+	}
+	lastclick = Date.now();
+	itemselect();
 }
 
 
@@ -349,7 +370,6 @@ function itembest() {
 	qplay(click);
 	document.getElementById('notice').textContent = '';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
-	let temp;
 
 	if (item_sel === '- Select Item -') {
 		document.getElementById('eq').src = '';
@@ -360,47 +380,27 @@ function itembest() {
 		document.getElementById('itemwin1').style = 'display:none';
 		document.getElementById('itemwin2').style = 'display:none';
 		document.getElementById('itemwin3').style = 'display:none';
+		return;
 	}
-	else if (item_sel === 'Zakum Helmet') {
-		temp = bestitem[0];
-		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
-		slots = temp[6];
-	}
-	else if (item_sel === 'Brown Work Gloves') {
-		temp = bestitem[1];
-		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
-		slots = temp[6];
-	}
-	else if (item_sel === 'Maple Soul Searcher') {
-		temp = bestitem[2];
-		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
-		slots = temp[6];
-	}
-	else if (item_sel === 'Maple Lama Staff') {
-		temp = bestitem[3];
-		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
-		slots = temp[6];
-	}
-	else if (item_sel === 'Maple Impaler') {
-		temp = bestitem[4];
-		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
-		slots = temp[6];
-	}
-	else if (item_sel === 'Maple Kandayo') {
-		temp = bestitem[5];
-		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
-		slots = temp[6];
-	}
-	else if (item_sel === 'Maple Wagner') {
-		temp = bestitem[6];
-		itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
-		slots = temp[6];
-	}
+
+	let temp = items[itemnames.indexOf(item_sel)][3];
+	itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
+	stat_str = temp[0];
+	stat_dex = temp[1];
+	stat_int = temp[2];
+	stat_luk = temp[3];
+	watk = temp[4];
+	matk = temp[5];
+	slots = temp[6];
+	upgrades = temp[7];
 }
 
 
-function rng(x) {
-	if (lastclick >= (Date.now() - delay)) {
+function rng(x, white) {
+	if (item_sel === '- Select Item -' || item_sel === 'None') {
+		return;
+	}
+	if (lastclick >= (Date.now() - delay_scroll)) {
 		return;
 	}
 	lastclick = Date.now();
@@ -408,236 +408,68 @@ function rng(x) {
 	let chance = Number(x);
 	let roll = Number(Math.floor((Math.random() * 100) + 1));
 	let roll2 = Number(Math.floor((Math.random() * 100) + 1));
+	document.getElementById('notice').textContent = '';
 
-	if (item_sel === '- Select Item -' || item_sel === 'None') {
+	let temp = items[itemnames.indexOf(item_sel)];
+
+	if (white === 1) {
+		if (slots < (temp[2][6] - upgrades)) {
+			if (roll <= chance) {
+				enchant_s();
+				slots += 1;
+				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			}
+			else {
+				enchant_f();
+			}
+		}
+		return;
+	}
+	else if (slots === 0) {
 		return;
 	}
 
-	document.getElementById('notice').textContent = '';
-
-	if (item_sel === 'Zakum Helmet') {
-		if (slots === 0) {
-			return;
+	if (roll <= chance) {
+		enchant_s();
+		if (chance === 10 || chance === 30) {
+			stat_str += temp[4][0];
+			stat_dex += temp[4][1];
+			stat_int += temp[4][2];
+			stat_luk += temp[4][3];
+			watk += temp[4][4];
+			matk += temp[4][5];
+			slots -= 1;
+			upgrades += 1;
+			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 		}
-		if (roll <= chance) {
-			enchant_s();
-			if (chance === 10 || chance === 30) {
-				stat_str += 3;
-				stat_dex += 3;
-				stat_int += 3;
-				stat_luk += 3;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-			else if (chance === 60 || chance === 70) {
-				stat_str += 2;
-				stat_dex += 2;
-				stat_int += 2;
-				stat_luk += 2;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-		else {
-			enchant_f();
-			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
-				itemselect();
-				document.getElementById('notice').textContent = 'Item destroyed!';
-			}
-			else {
-				slots -= 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-
-		if (slots === 0 && stat_int > bestitem[0][2]) {
-			bestitem[0] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		else if (chance === 60 || chance === 70) {
+			stat_str += temp[5][0];
+			stat_dex += temp[5][1];
+			stat_int += temp[5][2];
+			stat_luk += temp[5][3];
+			watk += temp[5][4];
+			matk += temp[5][5];
+			slots -= 1;
+			upgrades += 1;
+			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 		}
 	}
-	else if (item_sel === 'Brown Work Gloves') {
-		if (slots === 0) {
-			return;
-		}
-		if (roll <= chance) {
-			enchant_s();
-			if (chance === 10 || chance === 30) {
-				watk += 3;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-			else if (chance === 60 || chance === 70) {
-				watk += 2;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
+	else {
+		enchant_f();
+		if (roll2 <= 50 && (chance === 30 || chance === 70)) {
+			itemselect();
+			document.getElementById('notice').textContent = 'Item destroyed!';
 		}
 		else {
-			enchant_f();
-			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
-				itemselect();
-				document.getElementById('notice').textContent = 'Item destroyed!';
-			}
-			else {
-				slots -= 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-
-		if (slots === 0 && watk > bestitem[1][4]) {
-			bestitem[1] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+			slots -= 1;
+			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 		}
 	}
-	else if (item_sel === 'Maple Soul Searcher') {
-		if (slots === 0) {
-			return;
-		}
-		if (roll <= chance) {
-			enchant_s();
-			if (chance === 10 || chance === 30) {
-				stat_dex += 1;
-				watk += 5;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-			else if (chance === 60 || chance === 70) {
-				watk += 2;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-		else {
-			enchant_f();
-			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
-				itemselect();
-				document.getElementById('notice').textContent = 'Item destroyed!';
-			}
-			else {
-				slots -= 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
 
-		if (slots === 0 && watk > bestitem[2][4]) {
-			bestitem[2] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
-		}
-	}
-	else if (item_sel === 'Maple Lama Staff') {
-		if (slots === 0) {
-			return;
-		}
-		if (roll <= chance) {
-			enchant_s();
-			if (chance === 10 || chance === 30) {
-				stat_int += 3;
-				matk += 5;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-			else if (chance === 60 || chance === 70) {
-				stat_int += 1;
-				matk += 2;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-		else {
-			enchant_f();
-			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
-				itemselect();
-				document.getElementById('notice').textContent = 'Item destroyed!';
-			}
-			else {
-				slots -= 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
+	let beststat = temp[6];
+	let temp2 = [stat_str, stat_dex, stat_int, stat_luk, watk, matk];
 
-		if (slots === 0 && matk > bestitem[3][5]) {
-			bestitem[3] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
-		}
-	}
-	else if (item_sel === 'Maple Impaler') {
-		if (slots === 0) {
-			return;
-		}
-		if (roll <= chance) {
-			enchant_s();
-			if (chance === 10 || chance === 30) {
-				stat_str += 3;
-				watk += 5;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-			else if (chance === 60 || chance === 70) {
-				stat_str += 1;
-				watk += 2;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-		else {
-			enchant_f();
-			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
-				itemselect();
-				document.getElementById('notice').textContent = 'Item destroyed!';
-			}
-			else {
-				slots -= 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-
-		if (slots === 0 && watk > bestitem[4][4]) {
-			bestitem[4] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
-		}
-	}
-	else if (item_sel === 'Maple Kandayo' || item_sel === 'Maple Wagner') {
-		if (slots === 0) {
-			return;
-		}
-		if (roll <= chance) {
-			enchant_s();
-			if (chance === 10 || chance === 30) {
-				stat_luk += 1;
-				watk += 5;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-			else if (chance === 60 || chance === 70) {
-				watk += 2;
-				slots -= 1;
-				upgrades += 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-		else {
-			enchant_f();
-			if (roll2 <= 50 && (chance === 30 || chance === 70)) {
-				itemselect();
-				document.getElementById('notice').textContent = 'Item destroyed!';
-			}
-			else {
-				slots -= 1;
-				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
-			}
-		}
-
-		if (slots === 0 && watk > bestitem[5][4] && item_sel === 'Maple Kandayo') {
-			bestitem[5] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
-		}
-		else if (slots === 0 && watk > bestitem[6][4] && item_sel === 'Maple Wagner') {
-			bestitem[6] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
-		}
+	if (slots === 0 && ((temp[7] === -1 && (Math.max(stat_str, stat_dex, stat_int, stat_luk) > Math.max(temp[3][0],temp[3][1],temp[3][2],temp[3][3]))) || (temp2[beststat] > temp[3][beststat]))) {
+		items[itemnames.indexOf(item_sel)][3] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
 	}
 }
