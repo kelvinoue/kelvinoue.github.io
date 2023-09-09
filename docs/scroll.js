@@ -22,6 +22,16 @@ let lastclick = 0;
 const delay_select = 250;
 const delay_scroll = 750;
 const buffer = [0,0,0,0,13,30,47,64];
+const upgradecolor = [
+ 'font-weight:bold;font-size:13;color:adacac'
+,'font-weight:bold;font-size:13'
+,'font-weight:bold;font-size:13;color:0388fc'
+,'font-weight:bold;font-size:13;color:ba03fc'
+,'font-weight:bold;font-size:13;color:d99502'
+,'font-weight:bold;font-size:13;color:5bc900'
+,'font-weight:bold;font-size:13;color:fc0356'
+];
+const scrollinfo = [-1, 10, 30, 60, 70];
 
 let item_sel = 'None';
 let stat_str = 0;
@@ -32,11 +42,13 @@ let watk = 0;
 let matk = 0;
 let slots = 0;
 let upgrades = 0;
+let mesos = 0;
 
 let itemnames = [
  'Zakum Helmet'
 ,'Blue Sauna Robe'
 ,'Red Sauna Robe'
+,'Pink Adventurer Cape'
 ,'Brown Work Gloves'
 ,'Pumpkin Spear'
 ,'Sake Bottle'
@@ -53,25 +65,27 @@ let itemnames = [
 ];
 
 let items = [
- ['Zakum Helmet', 'scroll/static/zakumhelmet.png', [15,15,15,15,0,0,10,0], [15,15,15,15,0,0,10,0], [3,3,3,3,0,0], [2,2,2,2,0,0], 0, -1, '']
-,['Blue Sauna Robe', 'scroll/static/bluesaunarobe.png', [0,0,0,0,0,0,10,0], [0,0,0,0,0,0,10,0], [5,5,5,5,0,0], [2,2,2,2,0,0], 0, -1, 'M']
-,['Red Sauna Robe', 'scroll/static/redsaunarobe.png', [0,0,0,0,0,0,10,0], [0,0,0,0,0,0,10,0], [5,5,5,5,0,0], [2,2,2,2,0,0], 0, -1, 'F']
-,['Brown Work Gloves', 'scroll/static/bwg.png', [0,0,0,0,0,0,7,0], [0,0,0,0,0,0,7,0], [0,0,0,0,3,0], [0,0,0,0,2,0], 4, 0, '']
-,['Pumpkin Spear', 'scroll/static/pumpkinspear.png', [1,0,0,0,47,0,7,0], [1,0,0,0,47,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '']
-,['Sake Bottle', 'scroll/static/sakebottle.png', [0,0,0,0,100,0,7,0], [0,0,0,0,100,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '']
-,['Maple Impaler', 'scroll/static/impaler.png', [1,0,0,0,65,0,7,0], [1,0,0,0,65,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '']
-,['Japanese Map', 'scroll/static/japanesemap.png', [2,2,0,0,68,0,7,0], [2,2,0,0,68,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '']
-,['Maple Soul Searcher', 'scroll/static/soulsearcher.png', [0,0,0,0,58,0,7,0], [0,0,0,0,58,0,7,0], [0,1,0,0,5,0], [0,0,0,0,2,0], 4, 0, '']
-,['Maple Lama Staff', 'scroll/static/lamastaff.png', [0,0,0,0,39,58,7,0], [0,0,0,0,39,58,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '']
-,['Hinomaru Fan', 'scroll/static/hinomarufan.png', [0,0,0,0,50,75,7,0], [0,0,0,0,50,75,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '']
-,['Maple Kandayo', 'scroll/static/kandayo.png', [0,0,0,0,23,0,7,0], [0,0,0,0,23,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
-,['Shinobi Bracer', 'scroll/static/shinobibracer.png', [0,0,0,5,28,0,7,0], [0,0,0,5,28,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
-,['Korean Fan', 'scroll/static/koreanfan.png', [0,0,0,0,50,0,7,0], [0,0,0,0,50,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
-,['Maple Wagner', 'scroll/static/wagner.png', [0,0,0,0,58,0,7,0], [0,0,0,0,58,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
-,['Diamond Dagger', 'scroll/static/diamonddagger.png', [0,3,0,0,62,0,7,0], [0,3,0,0,62,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '']
+ ['Zakum Helmet', 'scroll/static/zakumhelmet.png', [15,15,15,15,0,0,10,0], [15,15,15,15,0,0,10,0], [3,3,3,3,0,0], [2,2,2,2,0,0], 0, -1, '', [0, 1, 3, 4.5, 3, 0]]
+,['Blue Sauna Robe', 'scroll/static/bluesaunarobe.png', [0,0,0,0,0,0,10,0], [0,0,0,0,0,0,10,0], [5,5,5,5,0,0], [2,2,2,2,0,0], 0, -1, 'M', [0, 4, 16, 2.5, 2.5, 0]]
+,['Red Sauna Robe', 'scroll/static/redsaunarobe.png', [0,0,0,0,0,0,10,0], [0,0,0,0,0,0,10,0], [5,5,5,5,0,0], [2,2,2,2,0,0], 0, -1, 'F', [0, 4, 16, 2.5, 2.5, 0]]
+,['Pink Adventurer Cape', 'scroll/static/pinkadventurer.png', [0,0,0,0,2,0,5,0], [0,0,0,0,2,0,5,0], [3,3,3,3,0,0], [2,2,2,2,0,0], 4, 0, '', [10, 0.1, 1, 1, 3, 0]]
+,['Brown Work Gloves', 'scroll/static/bwg.png', [0,0,0,0,0,0,7,0], [0,0,0,0,0,0,7,0], [0,0,0,0,3,0], [0,0,0,0,2,0], 4, 0, '', [250, 0.25, 9, 0.25, 1.5, 0]]
+,['Pumpkin Spear', 'scroll/static/pumpkinspear.png', [1,0,0,0,47,0,7,0], [1,0,0,0,47,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0, 0.1, 6, 0.5, 0.75, 0]]
+,['Sake Bottle', 'scroll/static/sakebottle.png', [0,0,0,0,100,0,7,0], [0,0,0,0,100,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 6, 0.5, 0.75, 0]]
+,['Maple Impaler', 'scroll/static/impaler.png', [1,0,0,0,65,0,7,0], [1,0,0,0,65,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0, 0.1, 6, 0.5, 0.75, 0]]
+,['Japanese Map', 'scroll/static/japanesemap.png', [2,2,0,0,68,0,7,0], [2,2,0,0,68,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 6, 0.5, 0.75, 0]]
+,['Maple Soul Searcher', 'scroll/static/soulsearcher.png', [0,0,0,0,58,0,7,0], [0,0,0,0,58,0,7,0], [0,1,0,0,5,0], [0,0,0,0,2,0], 4, 0, '', [0, 1.25, 7, 0.5, 0.75, 0]]
+,['Maple Lama Staff', 'scroll/static/lamastaff.png', [0,0,0,0,39,58,7,0], [0,0,0,0,39,58,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '', [0, 0.1, 4.5, 0.75, 0.1, 0]]
+,['Hinomaru Fan', 'scroll/static/hinomarufan.png', [0,0,0,0,50,75,7,0], [0,0,0,0,50,75,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '', [0.1, 0.1, 4.5, 0.75, 0.1, 0]]
+,['Maple Kandayo', 'scroll/static/kandayo.png', [0,0,0,0,23,0,7,0], [0,0,0,0,23,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0, 0.1, 13.5, 1, 0.75, 0]]
+,['Shinobi Bracer', 'scroll/static/shinobibracer.png', [0,0,0,5,28,0,7,0], [0,0,0,5,28,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 13.5, 1, 0.75, 0]]
+,['Korean Fan', 'scroll/static/koreanfan.png', [0,0,0,0,50,0,7,0], [0,0,0,0,50,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0, 0.5, 5.5, 0.1, 0.1, 0]]
+,['Maple Wagner', 'scroll/static/wagner.png', [0,0,0,0,58,0,7,0], [0,0,0,0,58,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0, 0.5, 5.5, 0.1, 0.1, 0]]
+,['Diamond Dagger', 'scroll/static/diamonddagger.png', [0,3,0,0,62,0,7,0], [0,3,0,0,62,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0.1, 0.5, 5.5, 0.1, 0.1, 0]]
 ];
 
-//,['', 'scroll/static/', [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], 0, -1, '']
+//,['', 'scroll/static/', [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], 0, -1, '', [0, 0, 0, 0, 0, 0]]
+//[name, dir, defaultstats, beststats, 1030scrollstat, 6070scrollstat, beststatindex, beststatexceptionflag, genderflag, scrollinfo]
 
 
 function qplay(audio) {
@@ -196,8 +210,50 @@ function enchant_f() {
 }
 
 
-function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgrades) {
+function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgrades, l_mesos) {
 	let itemupdater = [];
+
+	let bestscroll = items[itemnames.indexOf(item_sel)][4];
+	let mainstat = items[itemnames.indexOf(item_sel)][6];
+	let maxupgrades = items[itemnames.indexOf(item_sel)][2][6];
+	let maxquality = bestscroll[mainstat] * maxupgrades;
+	let avgquality = items[itemnames.indexOf(item_sel)][2][mainstat];
+	let curitem = [l_str, l_dex, l_int, l_luk, l_watk, l_matk];
+	let curquality = curitem[mainstat];
+	let quality = 1;
+	let quality_ratio = 0;
+
+	if (items[itemnames.indexOf(item_sel)][7] === -1) {
+		curquality = Math.max(l_str, l_dex, l_int, l_luk);
+	}
+	if (item_sel === 'Pink Adventurer Cape') {
+		maxquality = 25;
+	}
+	if ((curquality - avgquality) > 0) {
+		quality_ratio = (curquality - avgquality) / maxquality;
+	}
+	else if ((curquality - avgquality) <= -2) {
+		quality_ratio = -1;
+	}
+
+	if (quality_ratio >= 0.9) {
+		quality = 6;
+	}
+	else if (quality_ratio >= 0.74) {
+		quality = 5;
+	}
+	else if (quality_ratio >= 0.6) {
+		quality = 4;
+	}
+	else if (quality_ratio >= 0.4) {
+		quality = 3;
+	}
+	else if (curquality - avgquality >= 2) {
+		quality = 2;
+	}
+	else if (quality_ratio === -1 || (l_upgrades > 0 && (curquality - avgquality < 2))) {
+		quality = 0;
+	}
 
 	if (l_upgrades > 0) {
 		itemupdater.push('(+' + l_upgrades.toString() + items[itemnames.indexOf(item_sel)][8] + ')');
@@ -232,38 +288,8 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 
 	itemupdater.push('UPGRADES AVAILABLE : ' + l_slots.toString());
 
-	if (l_upgrades === 0) {
-		document.getElementById('stat1').style = 'font-weight:bold;font-size:13';
-		document.getElementById('stat2').style = 'font-weight:bold;font-size:13';
-	}
-	else if (l_upgrades === 1) {
-		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:0388fc';
-		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:0388fc';
-	}
-	else if (l_upgrades === 2) {
-		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:0388fc';
-		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:0388fc';
-	}
-	else if (l_upgrades === 3) {
-		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:ba03fc';
-		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:ba03fc';
-	}
-	else if (l_upgrades === 4) {
-		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:ba03fc';
-		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:ba03fc';
-	}
-	else if (l_upgrades === 5) {
-		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:d99502';
-		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:d99502';
-	}
-	else if (l_upgrades === 6) {
-		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:5bc900';
-		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:5bc900';
-	}
-	else if (l_upgrades >= 7) {
-		document.getElementById('stat1').style = 'font-weight:bold;font-size:13;color:fc0356';
-		document.getElementById('stat2').style = 'font-weight:bold;font-size:13;color:fc0356';
-	}
+	document.getElementById('stat1').style = upgradecolor[quality];
+	document.getElementById('stat2').style = upgradecolor[quality];
 
 	for (let i = 0; i < 8; i++) {
 		if (i < itemupdater.length) {
@@ -278,6 +304,7 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 	document.getElementById('itemwin1').style = 'display:block;height:' + (75 + buffer[itemupdater.length]).toString();
 	document.getElementById('itemwin2').style = 'display:block;height:' + (71 + buffer[itemupdater.length]).toString();
 	document.getElementById('itemwin3').style = 'display:block';
+	document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
 }
 
 
@@ -353,7 +380,8 @@ function itemselect() {
 	matk = temp_matk;
 	slots = temp[2][6];
 	upgrades = temp[2][7];
-	itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+	mesos = temp[9][0];
+	itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades, mesos);
 }
 
 
@@ -384,7 +412,6 @@ function itembest() {
 	}
 
 	let temp = items[itemnames.indexOf(item_sel)][3];
-	itemupdate(temp[0],temp[1],temp[2],temp[3],temp[4],temp[5],temp[6],temp[7]);
 	stat_str = temp[0];
 	stat_dex = temp[1];
 	stat_int = temp[2];
@@ -393,10 +420,12 @@ function itembest() {
 	matk = temp[5];
 	slots = temp[6];
 	upgrades = temp[7];
+	mesos = items[itemnames.indexOf(item_sel)][9][5];
+	itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades, mesos);
 }
 
 
-function rng(x, white) {
+function rng(x, type) {
 	if (item_sel === '- Select Item -' || item_sel === 'None') {
 		return;
 	}
@@ -412,7 +441,7 @@ function rng(x, white) {
 
 	let temp = items[itemnames.indexOf(item_sel)];
 
-	if (white === 1) {
+	if (type === 1) {
 		if (slots < (temp[2][6] - upgrades)) {
 			if (roll <= chance) {
 				enchant_s();
@@ -422,14 +451,75 @@ function rng(x, white) {
 			else {
 				enchant_f();
 			}
+			mesos += 500;
+			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
 		}
 		return;
 	}
-	else if (slots === 0) {
+
+	if (slots === 0) {
 		return;
 	}
 
-	if (roll <= chance) {
+	if (type === 2) {
+		if (stat_str + stat_dex + stat_int + stat_luk + watk + matk === 0) {
+			return;
+		}
+
+		if (roll <= chance) {
+			enchant_s();
+			let roll3;
+			let roll4;
+			let roll5;
+			let chaos_temp = [stat_str, stat_dex, stat_int, stat_luk, watk, matk];
+			let chaos_temp2 = [];
+
+			for (let i = 0; i < 6; i++) {
+				roll3 = Number(Math.floor((Math.random() * 100) + 1));
+				roll4 = Number(Math.floor((Math.random() * 100) + 1));
+				roll5 = Number(Math.floor((Math.random() * (4 - 1) + 1)));
+
+				if (roll3 <= 10) {
+					roll5 += 2;
+				}
+				else if (roll3 <= 40) {
+					roll5 += 1;
+				}
+
+				if (roll4 <= 50) {
+					roll5 *= -1;
+				}
+
+				chaos_temp2.push(roll5);
+			}
+
+			for (let i = 0; i < 6; i++) {
+				if (chaos_temp[i] > 0) {
+					chaos_temp[i] += chaos_temp2[i];
+					chaos_temp[i] = Math.max(chaos_temp[i], 0);
+				}
+			}
+
+			stat_str = chaos_temp[0];
+			stat_dex = chaos_temp[1];
+			stat_int = chaos_temp[2];
+			stat_luk = chaos_temp[3];
+			watk = chaos_temp[4];
+			matk = chaos_temp[5];
+			slots -= 1;
+			upgrades += 1;
+			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+		}
+		else {
+			enchant_f();
+			slots -= 1;
+			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+		}
+		mesos += 450;
+		document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
+	}
+
+	else if (roll <= chance) {
 		enchant_s();
 		if (chance === 10 || chance === 30) {
 			stat_str += temp[4][0];
@@ -453,6 +543,8 @@ function rng(x, white) {
 			upgrades += 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 		}
+		mesos += temp[9][scrollinfo.indexOf(chance)];
+		document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
 	}
 	else {
 		enchant_f();
@@ -463,6 +555,8 @@ function rng(x, white) {
 		else {
 			slots -= 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			mesos += temp[9][scrollinfo.indexOf(chance)];
+			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
 		}
 	}
 
@@ -471,5 +565,6 @@ function rng(x, white) {
 
 	if (slots === 0 && ((temp[7] === -1 && (Math.max(stat_str, stat_dex, stat_int, stat_luk) > Math.max(temp[3][0],temp[3][1],temp[3][2],temp[3][3]))) || (temp2[beststat] > temp[3][beststat]))) {
 		items[itemnames.indexOf(item_sel)][3] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		items[itemnames.indexOf(item_sel)][9][5] = mesos;
 	}
 }
