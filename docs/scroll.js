@@ -57,31 +57,37 @@ let itemnames = [
 ,'Maple Soul Searcher'
 ,'Maple Lama Staff'
 ,'Hinomaru Fan'
+,'Pyogo Mushroom'
 ,'Maple Kandayo'
 ,'Shinobi Bracer'
 ,'Korean Fan'
 ,'Maple Wagner'
 ,'Diamond Dagger'
+,'Fan'
+,'Kebob'
 ];
 
 let items = [
  ['Zakum Helmet', 'scroll/static/zakumhelmet.png', [15,15,15,15,0,0,10,0], [15,15,15,15,0,0,10,0], [3,3,3,3,0,0], [2,2,2,2,0,0], 0, -1, '', [0, 1, 3, 4.5, 3, 0]]
 ,['Blue Sauna Robe', 'scroll/static/bluesaunarobe.png', [0,0,0,0,0,0,10,0], [0,0,0,0,0,0,10,0], [5,5,5,5,0,0], [2,2,2,2,0,0], 0, -1, 'M', [0, 4, 16, 2.5, 2.5, 0]]
 ,['Red Sauna Robe', 'scroll/static/redsaunarobe.png', [0,0,0,0,0,0,10,0], [0,0,0,0,0,0,10,0], [5,5,5,5,0,0], [2,2,2,2,0,0], 0, -1, 'F', [0, 4, 16, 2.5, 2.5, 0]]
-,['Pink Adventurer Cape', 'scroll/static/pinkadventurer.png', [0,0,0,0,2,0,5,0], [0,0,0,0,2,0,5,0], [3,3,3,3,0,0], [2,2,2,2,0,0], 4, 0, '', [10, 0.1, 1, 1, 3, 0]]
-,['Brown Work Gloves', 'scroll/static/bwg.png', [0,0,0,0,0,0,7,0], [0,0,0,0,0,0,7,0], [0,0,0,0,3,0], [0,0,0,0,2,0], 4, 0, '', [250, 0.25, 9, 0.25, 1.5, 0]]
+,['Pink Adventurer Cape', 'scroll/static/pinkadventurer.png', [0,0,0,0,2,0,5,0], [0,0,0,0,2,0,5,0], [3,3,3,3,0,0], [2,2,2,2,0,0], 4, 0, '', [10, 0.1, 1, 1, 3, 10]]
+,['Brown Work Gloves', 'scroll/static/bwg.png', [0,0,0,0,0,0,7,0], [0,0,0,0,0,0,7,0], [0,0,0,0,3,0], [0,0,0,0,2,0], 4, 0, '', [250, 0.25, 9, 0.25, 1.5, 250]]
 ,['Pumpkin Spear', 'scroll/static/pumpkinspear.png', [1,0,0,0,47,0,7,0], [1,0,0,0,47,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0, 0.1, 6, 0.5, 0.75, 0]]
-,['Sake Bottle', 'scroll/static/sakebottle.png', [0,0,0,0,100,0,7,0], [0,0,0,0,100,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 6, 0.5, 0.75, 0]]
+,['Sake Bottle', 'scroll/static/sakebottle.png', [0,0,0,0,100,0,7,0], [0,0,0,0,100,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 6, 0.5, 0.75, 0.1]]
 ,['Maple Impaler', 'scroll/static/impaler.png', [1,0,0,0,65,0,7,0], [1,0,0,0,65,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0, 0.1, 6, 0.5, 0.75, 0]]
-,['Japanese Map', 'scroll/static/japanesemap.png', [2,2,0,0,68,0,7,0], [2,2,0,0,68,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 6, 0.5, 0.75, 0]]
+,['Japanese Map', 'scroll/static/japanesemap.png', [2,2,0,0,68,0,7,0], [2,2,0,0,68,0,7,0], [3,0,0,0,5,0], [1,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 6, 0.5, 0.75, 0.1]]
 ,['Maple Soul Searcher', 'scroll/static/soulsearcher.png', [0,0,0,0,58,0,7,0], [0,0,0,0,58,0,7,0], [0,1,0,0,5,0], [0,0,0,0,2,0], 4, 0, '', [0, 1.25, 7, 0.5, 0.75, 0]]
 ,['Maple Lama Staff', 'scroll/static/lamastaff.png', [0,0,0,0,39,58,7,0], [0,0,0,0,39,58,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '', [0, 0.1, 4.5, 0.75, 0.1, 0]]
-,['Hinomaru Fan', 'scroll/static/hinomarufan.png', [0,0,0,0,50,75,7,0], [0,0,0,0,50,75,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '', [0.1, 0.1, 4.5, 0.75, 0.1, 0]]
+,['Hinomaru Fan', 'scroll/static/hinomarufan.png', [0,0,0,0,50,75,7,0], [0,0,0,0,50,75,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '', [0.1, 0.1, 4.5, 0.75, 0.1, 0.1]]
+,['Pyogo Mushroom', 'scroll/static/pyogomushroom.png', [0,0,4,0,66,108,7,0], [0,0,4,0,66,108,7,0], [0,0,3,0,0,5], [0,0,1,0,0,2], 5, 0, '', [0.1, 0.1, 4.5, 0.75, 0.1, 0.1]]
 ,['Maple Kandayo', 'scroll/static/kandayo.png', [0,0,0,0,23,0,7,0], [0,0,0,0,23,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0, 0.1, 13.5, 1, 0.75, 0]]
-,['Shinobi Bracer', 'scroll/static/shinobibracer.png', [0,0,0,5,28,0,7,0], [0,0,0,5,28,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 13.5, 1, 0.75, 0]]
+,['Shinobi Bracer', 'scroll/static/shinobibracer.png', [0,0,0,5,28,0,7,0], [0,0,0,5,28,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0.1, 0.1, 13.5, 1, 0.75, 0.1]]
 ,['Korean Fan', 'scroll/static/koreanfan.png', [0,0,0,0,50,0,7,0], [0,0,0,0,50,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0, 0.5, 5.5, 0.1, 0.1, 0]]
 ,['Maple Wagner', 'scroll/static/wagner.png', [0,0,0,0,58,0,7,0], [0,0,0,0,58,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0, 0.5, 5.5, 0.1, 0.1, 0]]
-,['Diamond Dagger', 'scroll/static/diamonddagger.png', [0,3,0,0,62,0,7,0], [0,3,0,0,62,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0.1, 0.5, 5.5, 0.1, 0.1, 0]]
+,['Diamond Dagger', 'scroll/static/diamonddagger.png', [0,3,0,0,62,0,7,0], [0,3,0,0,62,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0.1, 0.5, 5.5, 0.1, 0.1, 0.1]]
+,['Fan', 'scroll/static/fan.png', [0,0,0,0,78,0,7,0], [0,0,0,0,78,0,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0.1, 0.5, 5.5, 0.1, 0.1, 0.1]]
+,['Kebob', 'scroll/static/kebob.png', [0,0,0,0,82,90,7,0], [0,0,0,0,82,90,7,0], [0,0,0,1,5,0], [0,0,0,0,2,0], 4, 0, '', [0.1, 0.5, 5.5, 0.1, 0.1, 0.1]]
 ];
 
 //,['', 'scroll/static/', [0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0], [0,0,0,0,0,0], [0,0,0,0,0,0], 0, -1, '', [0, 0, 0, 0, 0, 0]]
@@ -114,7 +120,7 @@ function lplay() {
 		else if (sel_cur === 'Henesys') {
 			bgm = new Audio('scroll/FloralLife.mp3');
 		}
-		else if (sel_cur === 'Ellinia') {
+		else if (sel_cur === 'Ellinia Forest') {
 			bgm = new Audio('scroll/MissingYou.mp3');
 		}
 		else if (sel_cur === 'Perion') {
@@ -304,7 +310,7 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 	document.getElementById('itemwin1').style = 'display:block;height:' + (75 + buffer[itemupdater.length]).toString();
 	document.getElementById('itemwin2').style = 'display:block;height:' + (71 + buffer[itemupdater.length]).toString();
 	document.getElementById('itemwin3').style = 'display:block';
-	document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
+	document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
 }
 
 
@@ -427,6 +433,7 @@ function itembest() {
 
 function rng(x, type) {
 	if (item_sel === '- Select Item -' || item_sel === 'None') {
+		document.getElementById('notice').textContent = 'Please select an item.';
 		return;
 	}
 	if (lastclick >= (Date.now() - delay_scroll)) {
@@ -447,17 +454,21 @@ function rng(x, type) {
 				enchant_s();
 				slots += 1;
 				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+				document.getElementById('notice').textContent = '1 upgrade slot recovered.';
 			}
 			else {
 				enchant_f();
 			}
-			mesos += 500;
-			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
+			mesos += 100;
+			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
+			return;
 		}
+		document.getElementById('notice').textContent = 'No upgrade slots to recover.';
 		return;
 	}
 
 	if (slots === 0) {
+		document.getElementById('notice').textContent = 'No upgrade slots available.';
 		return;
 	}
 
@@ -509,14 +520,15 @@ function rng(x, type) {
 			slots -= 1;
 			upgrades += 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			document.getElementById('notice').textContent = 'Stats randomly altered.';
 		}
 		else {
 			enchant_f();
 			slots -= 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 		}
-		mesos += 450;
-		document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
+		mesos += 100;
+		document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
 	}
 
 	else if (roll <= chance) {
@@ -531,6 +543,17 @@ function rng(x, type) {
 			slots -= 1;
 			upgrades += 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			let notif = [];
+			if (Math.max(temp[4][0],temp[4][1],temp[4][2],temp[4][3]) > 0) {
+				notif.push('Stats:+' + Math.max(temp[4][0],temp[4][1],temp[4][2],temp[4][3]));
+			}
+			if (temp[4][4] > 0) {
+				notif.push('WATK:+' + temp[4][4]);
+			}
+			if (temp[4][5] > 0) {
+				notif.push('MATK:+' + temp[4][5]);
+			}
+			document.getElementById('notice').textContent = notif.join(', ') + '.';
 		}
 		else if (chance === 60 || chance === 70) {
 			stat_str += temp[5][0];
@@ -542,9 +565,20 @@ function rng(x, type) {
 			slots -= 1;
 			upgrades += 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			let notif = [];
+			if (Math.max(temp[5][0],temp[5][1],temp[5][2],temp[5][3]) > 0) {
+				notif.push('Stats:+' + Math.max(temp[5][0],temp[5][1],temp[5][2],temp[5][3]));
+			}
+			if (temp[5][4] > 0) {
+				notif.push('WATK:+' + temp[5][4]);
+			}
+			if (temp[5][5] > 0) {
+				notif.push('MATK:+' + temp[5][5]);
+			}
+			document.getElementById('notice').textContent = notif.join(', ') + '.';
 		}
 		mesos += temp[9][scrollinfo.indexOf(chance)];
-		document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
+		document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
 	}
 	else {
 		enchant_f();
@@ -556,7 +590,7 @@ function rng(x, type) {
 			slots -= 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 			mesos += temp[9][scrollinfo.indexOf(chance)];
-			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString();
+			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
 		}
 	}
 
