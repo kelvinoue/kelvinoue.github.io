@@ -84,11 +84,14 @@
 <link rel='preload' as='image' href='scroll/static/soulsearcher.png'/>
 <link rel='preload' as='image' href='scroll/static/lamastaff.png'/>
 <link rel='preload' as='image' href='scroll/static/hinomarufan.png'/>
+<link rel='preload' as='image' href='scroll/static/pyogomushroom.png'/>
 <link rel='preload' as='image' href='scroll/static/kandayo.png'/>
 <link rel='preload' as='image' href='scroll/static/shinobibracer.png'/>
 <link rel='preload' as='image' href='scroll/static/koreanfan.png'/>
 <link rel='preload' as='image' href='scroll/static/wagner.png'/>
 <link rel='preload' as='image' href='scroll/static/diamonddagger.png'/>
+<link rel='preload' as='image' href='scroll/static/fan.png'/>
+<link rel='preload' as='image' href='scroll/static/kebob.png'/>
 </head>
 
 <body style='text-align:center;font-size:14px;background-color:cccccc'>
@@ -215,12 +218,15 @@
 }
 #notice {
 	position:absolute;
-	top:50px;
-	left:78px;
+	top:51px;
+	width:100%;
+	height:20px;
 	font-family:arial;
 	font-weight:normal;
+	font-align:center;
 	font-size:12;
 	color:fcaa9d;
+	border:none;
 }
 #selection2 {
 	position:relative;
@@ -317,11 +323,14 @@
 <option>Maple Soul Searcher</option>
 <option>Maple Lama Staff</option>
 <option>Hinomaru Fan</option>
+<option>Pyogo Mushroom</option>
 <option>Maple Kandayo</option>
 <option>Shinobi Bracer</option>
 <option>Korean Fan</option>
 <option>Maple Wagner</option>
 <option>Diamond Dagger</option>
+<option>Fan</option>
+<option>Kebob</option>
 </select>
 <button id='new' type='button' onclick='itemselect_c()' style='font-size:12px'>New</button>
 <button id='best' type='button' onclick='itembest()' style='font-size:12px'>Best</button>
@@ -333,7 +342,7 @@
 <option>Lith Harbor</option>
 <option>L Forest</option>
 <option>Henesys</option>
-<option>Ellinia</option>
+<option>Ellinia Forest</option>
 <option>Perion</option>
 <option>Kerning City</option>
 <option>Sleepywood</option>
@@ -354,7 +363,7 @@
 <div id='mesobox'>
 	<p id='mesoinfo'>
 		<img id='meso' src='scroll/static/meso.png' />
-		<span id='mesoamt'>0</span>
+		<span id='mesoamt'>0 spent</span>
 	</p>
 </div>
 
