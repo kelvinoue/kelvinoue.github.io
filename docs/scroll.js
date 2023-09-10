@@ -328,6 +328,7 @@ function itemselect() {
 		document.getElementById('itemwin1').style = 'display:none';
 		document.getElementById('itemwin2').style = 'display:none';
 		document.getElementById('itemwin3').style = 'display:none';
+		document.getElementById('notice').textContent = 'Select an item and start scrolling!';
 		return;
 	}
 
@@ -414,6 +415,7 @@ function itembest() {
 		document.getElementById('itemwin1').style = 'display:none';
 		document.getElementById('itemwin2').style = 'display:none';
 		document.getElementById('itemwin3').style = 'display:none';
+		document.getElementById('notice').textContent = 'Select an item and start scrolling!';
 		return;
 	}
 
@@ -458,6 +460,7 @@ function rng(x, type) {
 			}
 			else {
 				enchant_f();
+				document.getElementById('notice').textContent = 'Scroll failed.';
 			}
 			mesos += 100;
 			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
@@ -526,6 +529,7 @@ function rng(x, type) {
 			enchant_f();
 			slots -= 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			document.getElementById('notice').textContent = 'Scroll failed.';
 		}
 		mesos += 100;
 		document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
@@ -589,6 +593,7 @@ function rng(x, type) {
 		else {
 			slots -= 1;
 			itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
+			document.getElementById('notice').textContent = 'Scroll failed.';
 			mesos += temp[9][scrollinfo.indexOf(chance)];
 			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
 		}
