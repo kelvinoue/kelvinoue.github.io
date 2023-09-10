@@ -207,18 +207,9 @@
 	background-color:rgba(0, 28, 112, 0.8);
 	border-style:none;
 }
-#scrollinfo {
-	position:absolute;
-	top:35px;
-	left:22px;
-	font-family:arial;
-	font-weight:bold;
-	font-size:11;
-	color:f7f7f7;
-}
 #notice {
 	position:absolute;
-	top:51px;
+	top:4px;
 	width:100%;
 	height:20px;
 	font-family:arial;
@@ -227,6 +218,19 @@
 	font-size:12;
 	color:fcaa9d;
 	border:none;
+}
+#selection1 {
+	position:relative;
+	top:18px;
+}
+#scrollinfo {
+	position:absolute;
+	top:53px;
+	left:22px;
+	font-family:arial;
+	font-weight:bold;
+	font-size:11;
+	color:f7f7f7;
 }
 #selection2 {
 	position:relative;
@@ -295,6 +299,7 @@
 <div id='selbox0'>
 <div id='selbox1'>
 
+<p id='notice'>Select an item and start scrolling!</p>
 <p id='selection1' style='margin:auto'>
 <img src='scroll/static/70p.png' onclick='rng(70)' />
 <img src='scroll/static/30p.png' onclick='rng(30)' />
@@ -303,9 +308,7 @@
 <img src='scroll/static/c60p.png' onclick='rng(60, 2)' />
 <img src='scroll/static/cs10p.png' onclick='rng(10, 1)' />
 </p>
-
 <p id='scrollinfo'>70%&nbsp;&nbsp;&nbsp;&nbsp;30%&nbsp;&nbsp;&nbsp;&nbsp;60%&nbsp;&nbsp;&nbsp;&nbsp;10%&nbsp;&nbsp;&nbsp;c60%&nbsp;&nbsp;cs10%</p>
-<p id='notice'></p>
 
 <br>
 <p id='selection2'>
