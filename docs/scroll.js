@@ -622,4 +622,9 @@ function rng(x, type) {
 		items[itemnames.indexOf(item_sel)][9][5] = mesos;
 		best_flag = 1;
 	}
+	else if (slots === 0 && mesos < items[itemnames.indexOf(item_sel)][9][5] && ((temp[7] === -1 && (Math.max(stat_str, stat_dex, stat_int, stat_luk) === Math.max(temp[3][0],temp[3][1],temp[3][2],temp[3][3]))) || (temp2[beststat] === temp[3][beststat]))) {
+		items[itemnames.indexOf(item_sel)][3] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
+		items[itemnames.indexOf(item_sel)][9][5] = mesos;
+		best_flag = 1;
+	}
 }
