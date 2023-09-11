@@ -32,6 +32,7 @@ const upgradecolor = [
 ,'font-weight:bold;font-size:13;color:fc0356'
 ];
 const scrollinfo = [-1, 10, 30, 60, 70];
+let best_flag = 0;
 
 let item_sel = 'None';
 let stat_str = 0;
@@ -315,6 +316,7 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 
 
 function itemselect() {
+	best_flag = 0;
 	qplay(click);
 	document.getElementById('notice').textContent = '';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
@@ -402,6 +404,7 @@ function itemselect_c() {
 
 
 function itembest() {
+	best_flag = 1;
 	qplay(click);
 	document.getElementById('notice').textContent = '';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
@@ -457,6 +460,10 @@ function rng(x, type) {
 				slots += 1;
 				itemupdate(stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades);
 				document.getElementById('notice').textContent = '1 upgrade slot recovered.';
+
+				if (best_flag === 1) {
+					items[itemnames.indexOf(item_sel)][3][6] = slots;
+				}
 			}
 			else {
 				enchant_f();
@@ -464,6 +471,10 @@ function rng(x, type) {
 			}
 			mesos += 100;
 			document.getElementById('mesoamt').textContent = (mesos*1000000).toLocaleString() + ' spent';
+
+			if (best_flag === 1) {
+				items[itemnames.indexOf(item_sel)][9][5] = mesos;
+			}
 			return;
 		}
 		document.getElementById('notice').textContent = 'No upgrade slots to recover.';
@@ -587,6 +598,10 @@ function rng(x, type) {
 	else {
 		enchant_f();
 		if (roll2 <= 50 && (chance === 30 || chance === 70)) {
+			if (best_flag === 1) {
+				items[itemnames.indexOf(item_sel)][3] = temp[2];
+				items[itemnames.indexOf(item_sel)][9][5] = temp[9][0];
+			}
 			itemselect();
 			document.getElementById('notice').textContent = 'Item destroyed!';
 		}
@@ -605,5 +620,6 @@ function rng(x, type) {
 	if (slots === 0 && ((temp[7] === -1 && (Math.max(stat_str, stat_dex, stat_int, stat_luk) > Math.max(temp[3][0],temp[3][1],temp[3][2],temp[3][3]))) || (temp2[beststat] > temp[3][beststat]))) {
 		items[itemnames.indexOf(item_sel)][3] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
 		items[itemnames.indexOf(item_sel)][9][5] = mesos;
+		best_flag = 1;
 	}
 }
