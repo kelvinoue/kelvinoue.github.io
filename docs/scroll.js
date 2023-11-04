@@ -259,7 +259,12 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 		quality = 2;
 	}
 	else if (quality_ratio === -1 || (l_upgrades > 0 && (curquality - avgquality < 2))) {
-		quality = 0;
+		if (item_sel === 'Pink Adventurer Cape' && (l_upgrades > 0 && Math.max(l_str, l_dex, l_int, l_luk) > 0) || (curquality >= avgquality)) {
+			quality = 2;
+		}
+		else {
+			quality = 0;
+		}
 	}
 
 	if (l_upgrades > 0) {
@@ -318,7 +323,7 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 function itemselect() {
 	best_flag = 0;
 	qplay(click);
-	document.getElementById('notice').textContent = '';
+	document.getElementById('notice').textContent = 'Select a scroll to upgrade your item.';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
 
 	if (item_sel === '- Select Item -') {
@@ -406,7 +411,7 @@ function itemselect_c() {
 function itembest() {
 	best_flag = 1;
 	qplay(click);
-	document.getElementById('notice').textContent = '';
+	document.getElementById('notice').textContent = 'Showing current best item.';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
 
 	if (item_sel === '- Select Item -') {
@@ -488,34 +493,52 @@ function rng(x, type) {
 
 	if (type === 2) {
 		if (stat_str + stat_dex + stat_int + stat_luk + watk + matk === 0) {
+			document.getElementById('notice').textContent = 'No stats to alter.';
 			return;
 		}
 
 		if (roll <= chance) {
 			enchant_s();
 			let roll3;
-			let roll4;
-			let roll5;
 			let chaos_temp = [stat_str, stat_dex, stat_int, stat_luk, watk, matk];
 			let chaos_temp2 = [];
 
 			for (let i = 0; i < 6; i++) {
-				roll3 = Number(Math.floor((Math.random() * 100) + 1));
-				roll4 = Number(Math.floor((Math.random() * 100) + 1));
-				roll5 = Number(Math.floor((Math.random() * (4 - 1) + 1)));
+				roll3 = Number(Math.floor((Math.random() * 10000) + 1) / 100);
 
-				if (roll3 <= 10) {
-					roll5 += 2;
+				if (roll3 <= 4.94) {
+					chaos_temp2.push(-5);
 				}
-				else if (roll3 <= 40) {
-					roll5 += 1;
+				else if (roll3 <= 7.91) {
+					chaos_temp2.push(-4);
 				}
-
-				if (roll4 <= 50) {
-					roll5 *= -1;
+				else if (roll3 <= 11.56) {
+					chaos_temp2.push(-3);
 				}
-
-				chaos_temp2.push(roll5);
+				else if (roll3 <= 19.56) {
+					chaos_temp2.push(-2);
+				}
+				else if (roll3 <= 33.26) {
+					chaos_temp2.push(-1);
+				}
+				else if (roll3 <= 51.64) {
+					chaos_temp2.push(0);
+				}
+				else if (roll3 <= 70.95) {
+					chaos_temp2.push(1);
+				}
+				else if (roll3 <= 86.82) {
+					chaos_temp2.push(2);
+				}
+				else if (roll3 <= 97.03) {
+					chaos_temp2.push(3);
+				}
+				else if (roll3 <= 99.01) {
+					chaos_temp2.push(4);
+				}
+				else {
+					chaos_temp2.push(5);
+				}
 			}
 
 			for (let i = 0; i < 6; i++) {
@@ -617,7 +640,7 @@ function rng(x, type) {
 	let beststat = temp[6];
 	let temp2 = [stat_str, stat_dex, stat_int, stat_luk, watk, matk];
 
-	if (slots === 0 && ((temp[7] === -1 && (Math.max(stat_str, stat_dex, stat_int, stat_luk) > Math.max(temp[3][0],temp[3][1],temp[3][2],temp[3][3]))) || (temp2[beststat] > temp[3][beststat]))) {
+	if (slots === 0 && ((temp[7] === -1 && (Math.max(stat_str, stat_dex, stat_int, stat_luk) > Math.max(temp[3][0],temp[3][1],temp[3][2],temp[3][3]))) || (temp2[beststat] > temp[3][beststat]) || (item_sel === 'Pink Adventurer Cape' && temp[3][beststat] <= 2 && Math.max(stat_str, stat_dex, stat_int, stat_luk) > Math.max(temp[3][0],temp[3][1],temp[3][2],temp[3][3])))) {
 		items[itemnames.indexOf(item_sel)][3] = [stat_str, stat_dex, stat_int, stat_luk, watk, matk, slots, upgrades];
 		items[itemnames.indexOf(item_sel)][9][5] = mesos;
 		best_flag = 1;
