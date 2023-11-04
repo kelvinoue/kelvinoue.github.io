@@ -186,6 +186,7 @@ function enchant_s() {
 	qplay(enchant_s_mp3);
 	let i = 0;
 	let img = document.getElementById('enchant');
+	img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block'
 
 	function animate() {
 		img.src = imgsrc_s[i];
@@ -193,6 +194,7 @@ function enchant_s() {
 		if (i === imgsrc_s.length) {
 			clearInterval(animation);
 			img.src = '';
+			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none'
 		}
 	}
 	let animation = setInterval(animate, 50);
@@ -204,6 +206,7 @@ function enchant_f() {
 	qplay(enchant_f_mp3);
 	let i = 0;
 	let img = document.getElementById('enchant');
+	img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block'
 
 	function animate() {
 		img.src = imgsrc_f[i];
@@ -211,6 +214,7 @@ function enchant_f() {
 		if (i === imgsrc_f.length) {
 			clearInterval(animation);
 			img.src = '';
+			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none'
 		}
 	}
 	let animation = setInterval(animate, 50);
