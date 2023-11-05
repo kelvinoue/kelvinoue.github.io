@@ -33,6 +33,7 @@ const upgradecolor = [
 ];
 const scrollinfo = [-1, 10, 30, 60, 70];
 let best_flag = 0;
+let ani_state = 0;
 
 let item_sel = 'None';
 let stat_str = 0;
@@ -186,15 +187,21 @@ function enchant_s() {
 	qplay(enchant_s_mp3);
 	let i = 0;
 	let img = document.getElementById('enchant');
-	img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block'
 
 	function animate() {
+		ani_state = 1;
+		if (ani_state === 1) {
+			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block';
+		}
 		img.src = imgsrc_s[i];
 		i++;
 		if (i === imgsrc_s.length) {
+			ani_state = 0;
+			if (ani_state === 0) {
+				img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none';
+			}
 			clearInterval(animation);
 			img.src = '';
-			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none'
 		}
 	}
 	let animation = setInterval(animate, 50);
@@ -206,15 +213,21 @@ function enchant_f() {
 	qplay(enchant_f_mp3);
 	let i = 0;
 	let img = document.getElementById('enchant');
-	img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block'
 
 	function animate() {
+		ani_state = 1;
+		if (ani_state === 1) {
+			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block';
+		}
 		img.src = imgsrc_f[i];
 		i++;
 		if (i === imgsrc_f.length) {
+			ani_state = 0;
+			if (ani_state === 0) {
+				img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none';
+			}
 			clearInterval(animation);
 			img.src = '';
-			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none'
 		}
 	}
 	let animation = setInterval(animate, 50);
