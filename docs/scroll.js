@@ -187,19 +187,19 @@ function enchant_s() {
 	qplay(enchant_s_mp3);
 	let i = 0;
 	let img = document.getElementById('enchant');
+	img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block';
+	ani_state = 1;
 
 	function animate() {
-		ani_state = 1;
-		if (ani_state === 1) {
+		if (ani_state === 0) {
 			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block';
+			ani_state = 1;
 		}
 		img.src = imgsrc_s[i];
 		i++;
 		if (i === imgsrc_s.length) {
+			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none';
 			ani_state = 0;
-			if (ani_state === 0) {
-				img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none';
-			}
 			clearInterval(animation);
 			img.src = '';
 		}
@@ -213,19 +213,19 @@ function enchant_f() {
 	qplay(enchant_f_mp3);
 	let i = 0;
 	let img = document.getElementById('enchant');
+	img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block';
+	ani_state = 1;
 
 	function animate() {
-		ani_state = 1;
-		if (ani_state === 1) {
+		if (ani_state === 0) {
 			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block';
+			ani_state = 1;
 		}
 		img.src = imgsrc_f[i];
 		i++;
 		if (i === imgsrc_f.length) {
+			img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none';
 			ani_state = 0;
-			if (ani_state === 0) {
-				img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:none';
-			}
 			clearInterval(animation);
 			img.src = '';
 		}
