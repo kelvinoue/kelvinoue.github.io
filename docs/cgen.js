@@ -240,8 +240,8 @@ function calc(l, n) {
 	p6 = p6*c[5];
 	r = (p1+p2+p3+p4+p5+p6) % 19;
 	r = checksum[r];
-	document.getElementById('output').style = 'font-size:20px;font-weight:bold';
-	document.getElementById('output').textContent = a_raw + b_raw + r;	
+	document.getElementById('output').style = 'font-size:20px;font-family:CW';
+	document.getElementById('output').textContent = a_raw + ' ' + b_raw + ' ' + r;
 }
 
 
