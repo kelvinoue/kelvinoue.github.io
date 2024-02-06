@@ -10,7 +10,7 @@ input.addEventListener('keypress',
 
 
 function copy() {
-	t = document.getElementById('output').innerText;
+	t = document.getElementById('output').innerText.replace(/ /g,'');
 	if (t !== '' && t !== null && t!== 'Please enter a valid registration no. without the checksum letter.') {
 		navigator.clipboard.writeText(t);
 		document.getElementById('alert').textContent = 'Copied!';
