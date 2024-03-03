@@ -161,6 +161,7 @@ function lplay() {
 		for (let i = 0; i < bgm_collection.length; i++) {
 			if (sel_cur === bgm_collection[i][0]) {
 				bgm = new Audio('scroll/' + bgm_collection[i][1] + '.mp3');
+				bgm.load();
 				break;
 			}
 		}
