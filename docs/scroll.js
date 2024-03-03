@@ -130,21 +130,33 @@ let items = [
 //[name, dir, defaultstats, beststats, 1030scrollstat, 6070scrollstat, beststatindex, beststatexceptionflag, genderflag, scrollinfo]
 
 
-function qplay(audiolist) {
-	for (let i = 0; i < audiolist.length; i++) {
-		audiolist[i].currentTime = 0;
-		audiolist[i].play();			
-	}
+function qplaybase(audio) {
+	return new Promise(res => {
+		audio.currentTime = 0;
+		audio.play();
+		audio.onended = res;
+	})
+}
+
+
+async function qplay(audio) {
+	await qplaybase(audio);
+	audio.load();
 }
 
 
 function lplay() {
-	qplay([click]);
+	qplay(click);
 	let sel_new = document.getElementById('bgmlist').options[document.getElementById('bgmlist').selectedIndex].text;
 
 	if (sel_cur !== sel_new) {
 		bgm.pause();
 		sel_cur = sel_new;
+
+		if (sel_cur === '- Select BGM -') {
+			bgm = new Audio('');
+			return;
+		}
 
 		for (let i = 0; i < bgm_collection.length; i++) {
 			if (sel_cur === bgm_collection[i][0]) {
@@ -160,7 +172,7 @@ function lplay() {
 
 
 function play() {
-	qplay([click]);
+	qplay(click);
 	if (bgm.paused) {
 		bgm.play();
 		bgm.loop = true;
@@ -172,7 +184,8 @@ function play() {
 
 
 function enchant_s() {
-	qplay([click,enchant_s_mp3]);
+	qplay(click);
+	qplay(enchant_s_mp3);
 	let i = 0;
 	let img = document.getElementById('enchant');
 	img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block';
@@ -197,7 +210,8 @@ function enchant_s() {
 
 
 function enchant_f() {
-	qplay([click,enchant_f_mp3]);
+	qplay(click);
+	qplay(enchant_f_mp3);
 	let i = 0;
 	let img = document.getElementById('enchant');
 	img.style = 'position:absolute;z-index:1;top:-80px;left:-49px;display:block';
@@ -326,7 +340,7 @@ function itemupdate(l_str, l_dex, l_int, l_luk, l_watk, l_matk, l_slots, l_upgra
 
 function itemselect() {
 	best_flag = 0;
-	qplay([click]);
+	qplay(click);
 	document.getElementById('notice').textContent = 'Select a scroll to upgrade your item.';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
 
@@ -414,7 +428,7 @@ function itemselect_c() {
 
 function itembest() {
 	best_flag = 1;
-	qplay([click]);
+	qplay(click);
 	document.getElementById('notice').textContent = 'Showing current best item.';
 	item_sel = document.getElementById('itemlist').options[document.getElementById('itemlist').selectedIndex].text;
 
