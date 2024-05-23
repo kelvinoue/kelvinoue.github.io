@@ -75,6 +75,8 @@ function clearmsg() {
 
 function emsg() {
 	document.getElementById('alert').textContent = e;
+	style_padding = '0';
+	style(style_state);
 }
 
 
