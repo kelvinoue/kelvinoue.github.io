@@ -45,33 +45,59 @@
     font-weight:normal;
     font-style:normal;
 }
+input:focus::placeholder {
+  color:transparent;
+}
 </style>
 
-<br>
-<p id='title' style='width:65%;margin:auto'>
-<span style='font-size:24px;font-weight:bold'>Checksum Generator</span><br>
-<span>A simple vehicle registration checksum letter generator written in Javascript.</span>
-</p>
 
 <br>
+<p id='title' style='width:65%;margin:auto;'>
+<span style='font-size:24px;font-weight:bold;'>Checksum Generator</span>
+<br>
+<span>A simple VRN checksum letter generator written in Javascript.</span>
+</p>
+
+
+<div id='s1' style='height:40px;'>
+</div>
+
+
+<div id='s2' style='height:70px;'>
+<p id='result'>
+<span id='output' style='font-size:20px;font-family:CW;'></span>
+<br>
+</p>
+</div>
+
+
+<div id='s3' style='height:36px;'>
 <p id='main'>
-<input id='query' type='text' placeholder='Registration No.'>
+<input id='query' type='text' style='width:90px;font-size:12px;color:gray;text-align:center;' placeholder='Enter VRN'/>
 </p>
+</div>
 
-<button id='generate' type='button' onclick='gen()' style='font-size:12px'>Enter</button>
-<button id='copy' type='button' onclick='copy()' style='font-size:12px'>Copy</button>
 
-<p id='main2'></p>
-<button id='gen1' type='button' onclick='gen1()' style='font-size:12px'>+1</button>
-<button id='gen5' type='button' onclick='gen5()' style='font-size:12px'>+5</button>
-<button id='gena' type='button' onclick='gena()' style='font-size:12px'>+A</button>
+<div id='s4' style='height:35px;'>
+<button id='generate' type='button' onclick='gen()' style='font-size:12px;'>Enter</button>
+<button id='copy' type='button' onclick='copy()' style='font-size:12px;'>Copy</button>
+<button id='style' type='button' onclick='style_toggle()' style='font-size:12px;'>Style</button>
+</div>
 
-<br>
-<br>
-<p id='result' style='width:65%;margin:auto'>
-<span id='output'></span><br>
-<span id='alert'></span>
-</p>
+
+<div id='s5' style='height:35px;'>
+<button id='gen1' type='button' onclick='gen1()' style='width:35px;font-size:12px;'>+1</button>
+<button id='gen10' type='button' onclick='gen10()' style='width:35px;font-size:12px;'>+10</button>
+<button id='gena' type='button' onclick='gena()' style='width:35px;font-size:12px;'>+A</button>
+<button id='finda' type='button' onclick='finda()' style='font-size:12px;'>Next</button>
+<button id='reset' type='button' onclick='reset()' style='font-size:12px;'>Reset</button>
+<button id='gens' type='button' onclick='gens()' style='font-size:12px;'>+/-</button>
+</div>
+
+
+<div id='s6'>
+<span id='alert' style='font-size:12px;'></span>
+</div>
 
 
 <script src='cgen.js'></script>
