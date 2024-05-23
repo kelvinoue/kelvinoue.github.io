@@ -1,3 +1,55 @@
+
+let a_raw;
+let b_raw;
+let p1;
+let p2;
+let p3;
+let p4;
+let p5;
+let p6;
+let p7 = '';
+const check = [9,4,5,4,3,2];
+const checksum = ['A','Z','Y','X','U','T','S','R','P','M','L','K','J','H','G','E','D','C','B'];
+const e = 'Please enter a valid Vehicle Registration No. (E.g. S1, E1, SNA9999)';
+
+let dir = 1;
+const dir_index = {'1':'+', '-1':'-'};
+const dir_index2 = {'1':'Next ', '-1':'Prev '};
+
+const next_list = {
+	 'E':'EA'
+	,'EZ':'EZ'
+	,'S':'SB'
+	,'SY':'SBA'
+	,'SZ':'SBA'
+	,'SZZ':'SZZ'
+};
+
+const prev_list = {
+	 'E':'E'
+	,'EA':'E'
+	,'S':'S'
+	,'SB':'S'
+	,'SBA':'SY'
+};
+
+const ban_list_c2 = ['I','O','A','E','H'];
+const ban_list_c3 = ['I','O'];
+const ban_list_full = ['SA','SG','SH','SJ','SZ','SBS','SCB','SCC','SCD','SCS','SCT','SDC','SKY','SLY','SMB'];
+
+const style_base = document.getElementById('output').style.cssText;
+let style_state = 1;
+let style_padding = '0';
+let style_padding2 = 0;
+let style_padding3 = 0;
+
+
+
+
+
+
+
+
 let input = document.getElementById('query');
 input.addEventListener('keypress', 
 	function(event) {
@@ -9,13 +61,10 @@ input.addEventListener('keypress',
 );
 
 
-function copy() {
-	t = document.getElementById('output').innerText.replace(/ /g,'');
-	if (t !== '' && t !== null && t!== 'Please enter a valid registration no. without the checksum letter.') {
-		navigator.clipboard.writeText(t);
-		document.getElementById('alert').textContent = 'Copied!';
-	}
-}
+
+
+
+
 
 
 function clearmsg() {
@@ -25,9 +74,18 @@ function clearmsg() {
 
 
 function emsg() {
-	let e = 'Please enter a valid registration no. without the checksum letter.';
-	document.getElementById('output').style = 'font-size:14px;font-weight:normal';
-	document.getElementById('output').textContent = e;
+	document.getElementById('alert').textContent = e;
+}
+
+
+function copy() {
+	if (a_raw) {
+		navigator.clipboard.writeText(a_raw + b_raw + p7);
+		document.getElementById('alert').textContent = 'Copied!';
+	}
+	else {
+		emsg();
+	}
 }
 
 
@@ -49,132 +107,140 @@ function checkinput() {
 }
 
 
-function increment_letter(l) {
+function style(x) {
+	if (x === 1) {
+		document.getElementById('output').style = style_base + 'color:ffffff;background-color:000000;' + 'padding-left:' + style_padding + 'px;padding-right:' + style_padding + 'px;';
+	}
+	else if (x === 2) {
+		document.getElementById('output').style = style_base + 'color:000000;background-color:ffffff;' + 'padding-left:' + style_padding + 'px;padding-right:' + style_padding + 'px;';
+	}
+	else if (x === 3) {
+		document.getElementById('output').style = style_base + 'color:000000;background-color:ffdd00;' + 'padding-left:' + style_padding + 'px;padding-right:' + style_padding + 'px;';
+	}
+	else if (x === 4) {
+		document.getElementById('output').style = style_base + 'color:ffffff;' + 'padding-left:' + style_padding + 'px;padding-right:' + style_padding + 'px;';
+	}
+}
+
+
+
+
+
+
+
+
+function update_l(l, l_x) {
+
 	l2 = l.split('');
-	if (l2.length === 1) {
-		if (l2[0] === 'E') {
-			return 'EA';
+	
+	if ((l2[0] === 'E' && l2.length <= 2) || (l2[0] === 'S' && l2.length <= 3)) {
+
+		let l_end;
+		let l_start;
+		let l_change;
+
+		if (l_x === 1) {
+			l_end = 'Z';
+			l_start = 'A';
+			l_change = 1;
+			if (l in next_list) {
+				return next_list[l];
+			}
 		}
-		else if (l2[0] === 'S') {
-			return 'SB';
+		else if (l_x === -1) {
+			l_end = 'A';
+			l_start = 'Z';
+			l_change = -1;
+			if (l in prev_list) {
+				return prev_list[l];
+			}
 		}
+
+		do {
+			if (l2[l2.length-1] === l_end) {
+				l2[l2.length-1] = l_start;
+				l2[l2.length-2] = String.fromCharCode(l2[l2.length-2].charCodeAt(0) + l_change);
+			}
+			else {
+				l2[l2.length-1] = String.fromCharCode(l2[l2.length-1].charCodeAt(0) + l_change);
+			}
+		}
+		while (ban_list_full.includes(l2.join('')) || ban_list_c3.includes(l2[l2.length-1]) || (l2[0] === 'S' && l2.length === 3 && ban_list_c2.includes(l2[l2.length-2])));
+		return l2.join(''); 
 	}
-	else if (l2.length === 2) {
-		if (l2[0] === 'E') {
-			if (l2[1].charCodeAt(0) < 90) {
-				if ([78, 72].includes(l2[1].charCodeAt(0))) {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 2);
-				}
-				else {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 1);
-				}
-				return l2.join('');
-			}
-			else {
-				return l;
-			}
-		}
-		else if (l2[0] === 'S') {
-			if (l2[1].charCodeAt(0) < 89) {
-				if ([78, 73].includes(l2[1].charCodeAt(0))) {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 2);
-				}
-				else if ([72].includes(l2[1].charCodeAt(0))) {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 3);
-				}
-				else if ([71].includes(l2[1].charCodeAt(0))) {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 4);
-				}
-				else if ([70].includes(l2[1].charCodeAt(0))) {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 5);
-				}
-				else {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 1);
-				}
-				return l2.join('');
-			}
-			else {
-				return 'SBA';
-			}
-		}
-	}
-	else if (l2.length === 3) {
-		if (l2[2].charCodeAt(0) < 90) {
-			if ([78, 72].includes(l2[2].charCodeAt(0))) {
-				l2[2] = String.fromCharCode(l2[2].charCodeAt(0) + 2);
-			}
-			else {
-				l2[2] = String.fromCharCode(l2[2].charCodeAt(0) + 1);
-			}
-			return l2.join('');
-		}
-		else {
-			if (l2[1].charCodeAt(0) < 90) {
-				if ([78, 72, 68].includes(l2[1].charCodeAt(0))) {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 2);
-				}
-				else if ([71].includes(l2[1].charCodeAt(0))) {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 3);
-				}
-				else {
-					l2[1] = String.fromCharCode(l2[1].charCodeAt(0) + 1);
-				}
-				l2[2] = 'A';
-				return l2.join('');
-			}
-			else {
-				return l;
-			}
-		}
+
+	else {
+		return l;
 	}
 }
 
 
-function increment_num(l, n) {
+function update_n(l, n, n_x) {
+
 	n = Number(n);
-	if (n < 9999) {
-		return [l, (n + 1).toString()];
-	}
-	else if (n === 9999 && ['EZ','SZZ'].includes(l)) {
-		return [l, n.toString()];
-	}
-	else {
-		l = increment_letter(l);
-		return [l, (1).toString()];
-	}
-}
-
-
-function increment(l, n, x) {
-	if (x > 0) {
-		for (let i = 0; i < x; i++) {
-			[l, n] = increment_num(l, n);
+	
+	if (n_x > 0) {
+		if (['EZ','SZZ'].includes(l) && n + n_x > 9999) {
+			return([l, '9999']);
 		}
-		return [l, n];
+
+		else {
+			n = n + n_x;
+			n2 = Math.floor((n-1)/9999);
+			if (n2 > 0) {
+				n = n % 9999;
+			}
+			for (let i = 0; i < n2; i++) {
+				l = update_l(l, 1);
+			}
+		}
 	}
-	else if (x === 0) {
-		l = increment_letter(l);
-		return [l, n];
+
+	else if (n_x < 0) {
+		if (['E','S'].includes(l) && n + n_x < 1) {
+			return([l, '1']);
+		}
+		
+		else if (n + n_x === 0) {
+			l = update_l(l, -1);
+			return([l, '9999']);
+		}
+
+		else {
+			n = n + n_x;
+			n2 = Math.floor(n/9999) * -1;
+			n = n + (9999 * n2);
+			for (let i = 0; i < n2; i++) {
+				l = update_l(l, -1);
+			}
+		}
 	}
-	else {
-		return [l, n];
-	}
+
+	return([l, n.toString()])
 }
+
+
+function update(l, l_x, n, n_x) {
+	if (l_x != 0) {
+		l = update_l(l, l_x);
+	}
+	if (n_x != 0) {
+		[l, n] = update_n(l, n, n_x);
+	}
+	return [l, n];
+}
+
+
+
+
+
+
 
 
 function calc(l, n) {
-	let a_raw = l;
-	let b_raw = n;
-	let p1;
-	let p2;
-	let p3;
-	let p4;
-	let p5;
-	let p6;
-	let r;
-	let c = [9,4,5,4,3,2];
-	let checksum = ['A','Z','Y','X','U','T','S','R','P','M','L','K','J','H','G','E','D','C','B'];
-	
+	a_raw = l;
+	b_raw = n;
+
 	a = a_raw.split('');
 	b = b_raw.split('');
 
@@ -183,7 +249,7 @@ function calc(l, n) {
 		p2 = a[0].charCodeAt(0) - 64;
 	}
 	else if (a.length === 2) {
-		if (['I','O'].includes(a[1]) || (a[0] === 'S' && ['A','G','H','J','Z'].includes(a[1]))) {
+		if (ban_list_c3.includes(a[1]) || ban_list_full.includes(a_raw)) {
 			emsg();
 			return;
 		}
@@ -191,7 +257,7 @@ function calc(l, n) {
 		p2 = a[1].charCodeAt(0) - 64;
 	}
 	else if (a.length === 3 && a[0] === 'S') {
-		if (['I','O'].includes(a[2]) || ['I','O','A','E','H'].includes(a[1]) || ['SBS','SCB','SCC','SCD','SCS','SCT','SDC','SKY','SLY','SMB'].includes(a_raw)) {
+		if (ban_list_c3.includes(a[2]) || ban_list_c2.includes(a[1]) || ban_list_full.includes(a_raw)) {
 			emsg();
 			return;
 		}
@@ -207,69 +273,154 @@ function calc(l, n) {
 		p3 = 0;
 		p4 = 0;
 		p5 = 0;
-		p6 = b[0];
+		p6 = Number(b[0]);
 	}
 	else if (b.length === 2) {
 		p3 = 0;
 		p4 = 0;
-		p5 = b[0];
-		p6 = b[1];
+		p5 = Number(b[0]);
+		p6 = Number(b[1]);
 	}
 	else if (b.length === 3) {
 		p3 = 0;
-		p4 = b[0];
-		p5 = b[1];
-		p6 = b[2];
+		p4 = Number(b[0]);
+		p5 = Number(b[1]);
+		p6 = Number(b[2]);
 	}
 	else if (b.length === 4) {
-		p3 = b[0];
-		p4 = b[1];
-		p5 = b[2];
-		p6 = b[3];
+		p3 = Number(b[0]);
+		p4 = Number(b[1]);
+		p5 = Number(b[2]);
+		p6 = Number(b[3]);
 	}
 	else {
 		emsg();
 		return;
 	}
 
-	p1 = p1*c[0];
-	p2 = p2*c[1];
-	p3 = p3*c[2];
-	p4 = p4*c[3];
-	p5 = p5*c[4];
-	p6 = p6*c[5];
-	r = (p1+p2+p3+p4+p5+p6) % 19;
-	r = checksum[r];
-	document.getElementById('output').style = 'font-size:20px;font-family:CW';
-	document.getElementById('output').textContent = a_raw + ' ' + b_raw + ' ' + r;
+	style_padding2 = 0;
+	style_padding3 = 0;
+
+	if (p3 === 1) {
+		style_padding2 = style_padding2 + 3;
+		style_padding3++;
+	}
+	if (p4 === 1) {
+		style_padding2 = style_padding2 + 3;
+		style_padding3++;
+	}
+	if (p5 === 1) {
+		style_padding2 = style_padding2 + 3;
+		style_padding3++;
+	}
+	if (p6 === 1) {
+		style_padding2 = style_padding2 + 3;
+		style_padding3++;
+	}
+
+	p1 = p1 * check[0];
+	p2 = p2 * check[1];
+	p3 = p3 * check[2];
+	p4 = p4 * check[3];
+	p5 = p5 * check[4];
+	p6 = p6 * check[5];
+	p7 = (p1+p2+p3+p4+p5+p6) % 19;
+	p7 = checksum[p7];
+
+	style_padding = (Math.max((style_padding3 - 1), 0) + style_padding2 + 10 + (7 * (8 - (a.length + b.length + 1)))).toString();
+	style(style_state);
+	document.getElementById('output').textContent = a_raw + ' ' + b_raw + ' ' + p7;
+}
+
+
+
+
+
+
+
+
+function updatefinda() {
+	document.getElementById('finda').textContent = dir_index2[dir.toString()] + p7;
 }
 
 
 function gen() {
 	let [a, b] = checkinput();
 	calc(a, b);
+	updatefinda();
 }
 
 
 function gen1() {
 	let [a, b] = checkinput();
-	[a, b] = increment(a, b, 1);
+	[a, b] = update(a, 0, b, dir*1);
 	document.getElementById('query').value = a + b;
 	calc(a, b);
+	updatefinda();
 }
 
 
-function gen5() {
+function gen10() {
 	let [a, b] = checkinput();
-	[a, b] = increment(a, b, 5);
+	[a, b] = update(a, 0, b, dir*10);
 	document.getElementById('query').value = a + b;
 	calc(a, b);
+	updatefinda();
 }
 
 
 function gena() {
 	let [a, b] = checkinput();
-	[a, b] = increment(a, b, 0);
+	[a, b] = update(a, dir*1, b, 0);
 	document.getElementById('query').value = a + b;
 	calc(a, b);
+	updatefinda();
+}
+
+
+function gens() {
+	if (dir === 1) {
+		dir = -1;
+	}
+	else {
+		dir = 1;
+	}
+	document.getElementById('gen1').textContent = dir_index[dir.toString()] + '1';
+	document.getElementById('gen10').textContent = dir_index[dir.toString()] + '10';
+	document.getElementById('gena').textContent = dir_index[dir.toString()] + 'A';
+	updatefinda();
+}
+
+
+function finda() {
+	let p7_2 = p7;
+	let [a, b] = checkinput();
+
+	if (p7 != '') {
+		do {
+			gen1();
+		}
+		while (p7 != p7_2);
+	}
+}
+
+
+function reset() {
+	let [a, b] = checkinput();
+	[a, b] = update(a, 0, b, (-(Number(b_raw))+1));
+	document.getElementById('query').value = a + b;
+	calc(a, b);
+}
+
+
+function style_toggle() {
+	if (p7 != '') {
+		if (style_state < 4) {
+			style_state++;
+		}
+		else {
+			style_state = 1;
+		}
+		style(style_state);
+	}
 }
