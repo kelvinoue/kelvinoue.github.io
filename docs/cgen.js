@@ -38,10 +38,8 @@ const ban_list_c3 = ['I','O'];
 const ban_list_full = ['SA','SG','SH','SJ','SZ','SBS','SCB','SCC','SCD','SCS','SCT','SDC','SKY','SLY','SMB'];
 
 const style_base = document.getElementById('output').style.cssText;
+const style_base_s2a = document.getElementById('s2a').style.cssText;
 let style_state = 1;
-let style_padding = '0';
-let style_padding2 = 0;
-let style_padding3 = 0;
 
 
 
@@ -75,8 +73,7 @@ function clearmsg() {
 
 function emsg() {
 	document.getElementById('alert').textContent = e;
-	style_padding = '0';
-	style(style_state);
+	document.getElementById('s2a').style = style_base_s2a;
 }
 
 
@@ -111,16 +108,20 @@ function checkinput() {
 
 function style(x) {
 	if (x === 1) {
-		document.getElementById('output').style = style_base + 'color:ffffff;background-color:000000;' + 'padding-left:' + style_padding + 'px;padding-right:' + style_padding + 'px;';
+		document.getElementById('output').style = style_base + 'color:ffffff;';
+		document.getElementById('s2a').style = style_base_s2a + 'background-color:000000;';
 	}
 	else if (x === 2) {
-		document.getElementById('output').style = style_base + 'color:000000;background-color:ffffff;' + 'padding-left:' + style_padding + 'px;padding-right:' + style_padding + 'px;';
+		document.getElementById('output').style = style_base + 'color:000000;';
+		document.getElementById('s2a').style = style_base_s2a + 'background-color:ffffff;';
 	}
 	else if (x === 3) {
-		document.getElementById('output').style = style_base + 'color:000000;background-color:ffdd00;' + 'padding-left:' + style_padding + 'px;padding-right:' + style_padding + 'px;';
+		document.getElementById('output').style = style_base + 'color:000000;';
+		document.getElementById('s2a').style = style_base_s2a + 'background-color:ffdd00;';
 	}
 	else if (x === 4) {
-		document.getElementById('output').style = style_base + 'color:ffffff;' + 'padding-left:' + style_padding + 'px;padding-right:' + style_padding + 'px;';
+		document.getElementById('output').style = style_base + 'color:ffffff;';
+		document.getElementById('s2a').style = style_base_s2a;
 	}
 }
 
@@ -300,26 +301,6 @@ function calc(l, n) {
 		return;
 	}
 
-	style_padding2 = 0;
-	style_padding3 = 0;
-
-	if (p3 === 1) {
-		style_padding2 = style_padding2 + 3;
-		style_padding3++;
-	}
-	if (p4 === 1) {
-		style_padding2 = style_padding2 + 3;
-		style_padding3++;
-	}
-	if (p5 === 1) {
-		style_padding2 = style_padding2 + 3;
-		style_padding3++;
-	}
-	if (p6 === 1) {
-		style_padding2 = style_padding2 + 3;
-		style_padding3++;
-	}
-
 	p1 = p1 * check[0];
 	p2 = p2 * check[1];
 	p3 = p3 * check[2];
@@ -329,7 +310,6 @@ function calc(l, n) {
 	p7 = (p1+p2+p3+p4+p5+p6) % 19;
 	p7 = checksum[p7];
 
-	style_padding = (Math.max((style_padding3 - 1), 0) + style_padding2 + 10 + (7 * (8 - (a.length + b.length + 1)))).toString();
 	style(style_state);
 	document.getElementById('output').textContent = a_raw + ' ' + b_raw + ' ' + p7;
 }
