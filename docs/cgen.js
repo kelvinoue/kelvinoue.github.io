@@ -39,6 +39,7 @@ const ban_list_full = ['SA','SG','SH','SJ','SZ','SBS','SCB','SCC','SCD','SCS','S
 
 const style_base = document.getElementById('output').style.cssText;
 const style_base_s2a = document.getElementById('s2a').style.cssText;
+let style_base_mobile = '';
 let style_state = 1;
 
 
@@ -57,6 +58,11 @@ input.addEventListener('keypress',
   		}
 	}
 );
+
+
+if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
+	style_base_mobile = 'top:1px;';
+};
 
 
 
@@ -108,19 +114,19 @@ function checkinput() {
 
 function style(x) {
 	if (x === 1) {
-		document.getElementById('output').style = style_base + 'color:ffffff;';
+		document.getElementById('output').style = style_base + style_base_mobile + 'color:ffffff;';
 		document.getElementById('s2a').style = style_base_s2a + 'background-color:000000;';
 	}
 	else if (x === 2) {
-		document.getElementById('output').style = style_base + 'color:000000;';
+		document.getElementById('output').style = style_base + style_base_mobile + 'color:000000;';
 		document.getElementById('s2a').style = style_base_s2a + 'background-color:ffffff;';
 	}
 	else if (x === 3) {
-		document.getElementById('output').style = style_base + 'color:000000;';
+		document.getElementById('output').style = style_base + style_base_mobile + 'color:000000;';
 		document.getElementById('s2a').style = style_base_s2a + 'background-color:ffdd00;';
 	}
 	else if (x === 4) {
-		document.getElementById('output').style = style_base + 'color:ffffff;';
+		document.getElementById('output').style = style_base + style_base_mobile + 'color:ffffff;';
 		document.getElementById('s2a').style = style_base_s2a;
 	}
 }
