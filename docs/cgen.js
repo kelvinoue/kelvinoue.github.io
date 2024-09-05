@@ -61,7 +61,7 @@ input.addEventListener('keypress',
 
 
 if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
-	style_base_mobile = 'top:1px;';
+	style_base_mobile = 'top:2px;';
 };
 
 
